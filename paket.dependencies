@@ -4,3 +4,4 @@ storage: none
 framework: net8.0
 
 nuget FSharp.Core
+nuget Fable.Core
