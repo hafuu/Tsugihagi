@@ -5,8 +5,11 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup />
+
   <ItemGroup>
     <None Include="paket.reference" />
+    <Compile Include="Test.fs" />
   </ItemGroup>
 
 </Project>
