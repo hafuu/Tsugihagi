@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 # Fable output
 dist
+out

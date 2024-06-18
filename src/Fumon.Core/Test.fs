@@ -1,3 +1,3 @@
 module Test
 
-let hello() = "hello"
+let hello() = [ "hello"; "GAS" ]

@@ -2,4 +2,4 @@ module Program
 
 open Test
 
-let x() = hello()
+let x() = String.concat "," (hello())
