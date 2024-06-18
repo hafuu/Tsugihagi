@@ -1,9 +1,25 @@
 module Program
 
-open Test
 open Fable.Core
+open Fumon.Core
 
-let x() = String.concat "," (hello())
+let x() =
+    DecisionTable.create [|
+        {
+          Name = "p1"
+          Values = [| "a"; "b"; "c" |]
+        }
+        {
+          Name = "p2"
+          Values = [| "1"; "2" |]
+        }
+        {
+          Name = "p3"
+          Values = [| "あ"; |]
+        }
+    |]
+    |> Seq.length
+    |> string
 
 type GlobalExports = {
     mutable x: unit -> string
