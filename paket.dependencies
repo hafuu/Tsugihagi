@@ -5,3 +5,8 @@ framework: net8.0
 
 nuget FSharp.Core
 nuget Fable.Core
+
+nuget FsUnit
+nuget NUnit
+nuget Microsoft.NET.Test.Sdk
+nuget NUnit3TestAdapter
