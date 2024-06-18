@@ -14,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{ECC7B29B-3AD5-4E32-9FDE-CD5EB2F8FB22}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		package.json = package.json
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fumon.Gas", "src\Fumon.Gas\Fumon.Gas.fsproj", "{546775AE-F871-4F3D-81ED-17F8C66D1796}"
