@@ -25,11 +25,14 @@ type JdbcSQL_XML =
 
 type Array<'T> = System.Collections.Generic.IList<'T>
 
-let [<Import("SpreadsheetApp","module")>] SpreadsheetApp: GoogleAppsScript.Spreadsheet.SpreadsheetApp = jsNative
+[<AutoOpen>]
+module Globals =
+    let [<Emit("SpreadsheetApp")>] SpreadsheetApp:GoogleAppsScript.Spreadsheet.SpreadsheetApp = jsNative
+
+    let [<Emit("Utilities")>] Utilities:GoogleAppsScript.Utilities.Utilities = jsNative
 
 module GoogleAppsScript =
-    let [<Import("Base","module/GoogleAppsScript")>] ``base``: Base.IExports = jsNative
-    
+
     module Base =
         
         type [<AllowNullLiteral>] IExports =
@@ -2468,3 +2471,61 @@ module GoogleAppsScript =
             | Top
             | Middle
             | Bottom
+
+    module Utilities =
+
+        /// This service provides utilities for string encoding/decoding, date formatting, JSON manipulation,
+        /// and other miscellaneous tasks.
+        type [<AllowNullLiteral>] Utilities =
+            abstract Charset: obj with get, set
+            abstract DigestAlgorithm: obj with get, set
+            abstract MacAlgorithm: obj with get, set
+            abstract RsaAlgorithm: obj with get, set
+            abstract base64Decode: encoded: string -> ResizeArray<Byte>
+            //abstract base64Decode: encoded: string * charset: Charset -> ResizeArray<Byte>
+            abstract base64DecodeWebSafe: encoded: string -> ResizeArray<Byte>
+            //abstract base64DecodeWebSafe: encoded: string * charset: Charset -> ResizeArray<Byte>
+            abstract base64Encode: data: ResizeArray<Byte> -> string
+            abstract base64Encode: data: string -> string
+            //abstract base64Encode: data: string * charset: Charset -> string
+            abstract base64EncodeWebSafe: data: ResizeArray<Byte> -> string
+            abstract base64EncodeWebSafe: data: string -> string
+            //abstract base64EncodeWebSafe: data: string * charset: Charset -> string
+            //abstract computeDigest: algorithm: DigestAlgorithm * value: ResizeArray<Byte> -> ResizeArray<Byte>
+            //abstract computeDigest: algorithm: DigestAlgorithm * value: string -> ResizeArray<Byte>
+            //abstract computeDigest: algorithm: DigestAlgorithm * value: string * charset: Charset -> ResizeArray<Byte>
+            //abstract computeHmacSha256Signature: value: ResizeArray<Byte> * key: ResizeArray<Byte> -> ResizeArray<Byte>
+            //abstract computeHmacSha256Signature: value: string * key: string -> ResizeArray<Byte>
+            //abstract computeHmacSha256Signature: value: string * key: string * charset: Charset -> ResizeArray<Byte>
+            //abstract computeHmacSignature: algorithm: MacAlgorithm * value: ResizeArray<Byte> * key: ResizeArray<Byte> -> ResizeArray<Byte>
+            //abstract computeHmacSignature: algorithm: MacAlgorithm * value: string * key: string -> ResizeArray<Byte>
+            //abstract computeHmacSignature: algorithm: MacAlgorithm * value: string * key: string * charset: Charset -> ResizeArray<Byte>
+            //abstract computeRsaSha1Signature: value: string * key: string -> ResizeArray<Byte>
+            //abstract computeRsaSha1Signature: value: string * key: string * charset: Charset -> ResizeArray<Byte>
+            //abstract computeRsaSha256Signature: value: string * key: string -> ResizeArray<Byte>
+            //abstract computeRsaSha256Signature: value: string * key: string * charset: Charset -> ResizeArray<Byte>
+            //abstract computeRsaSignature: algorithm: RsaAlgorithm * value: string * key: string -> ResizeArray<Byte>
+            //abstract computeRsaSignature: algorithm: RsaAlgorithm * value: string * key: string * charset: Charset -> ResizeArray<Byte>
+            abstract formatDate: date: Base.Date * timeZone: string * format: string -> string
+            abstract formatString: template: string * [<ParamArray>] args: obj option[] -> string
+            abstract getUuid: unit -> string
+            //abstract gzip: blob: Base.BlobSource -> Base.Blob
+            //abstract gzip: blob: Base.BlobSource * name: string -> Base.Blob
+            //abstract newBlob: data: ResizeArray<Byte> -> Base.Blob
+            //abstract newBlob: data: ResizeArray<Byte> * contentType: string -> Base.Blob
+            //abstract newBlob: data: ResizeArray<Byte> * contentType: string * name: string -> Base.Blob
+            //abstract newBlob: data: string -> Base.Blob
+            //abstract newBlob: data: string * contentType: string -> Base.Blob
+            //abstract newBlob: data: string * contentType: string * name: string -> Base.Blob
+            abstract parseCsv: csv: string -> ResizeArray<ResizeArray<string>>
+            abstract parseCsv: csv: string * delimiter: Char -> ResizeArray<ResizeArray<string>>
+            abstract parseDate: date: string * timeZone: string * format: string -> DateTime
+            abstract sleep: milliseconds: Integer -> unit
+            //abstract ungzip: blob: Base.BlobSource -> Base.Blob
+            //abstract unzip: blob: Base.BlobSource -> ResizeArray<Base.Blob>
+            //abstract zip: blobs: ResizeArray<Base.BlobSource> -> Base.Blob
+            //abstract zip: blobs: ResizeArray<Base.BlobSource> * name: string -> Base.Blob
+            [<Obsolete("DO NOT USE")>]
+            abstract jsonParse: jsonString: string -> obj option
+            [<Obsolete("DO NOT USE")>]
+            abstract jsonStringify: obj: obj option -> string
