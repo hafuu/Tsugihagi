@@ -840,33 +840,33 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
             abstract reverseCategories: unit -> EmbeddedAreaChartBuilder
             abstract setBackgroundColor: cssValue: string -> EmbeddedAreaChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setColors: cssValues: ResizeArray<string> -> EmbeddedAreaChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setLegendPosition: position: Charts.Position -> EmbeddedAreaChartBuilder
-            abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setLegendPosition: position: Charts.Position -> EmbeddedAreaChartBuilder
+            //abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
-            abstract setPointStyle: style: Charts.PointStyle -> EmbeddedAreaChartBuilder
+            //abstract setPointStyle: style: Charts.PointStyle -> EmbeddedAreaChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setRange: start: float * ``end``: float -> EmbeddedAreaChartBuilder
             abstract setStacked: unit -> EmbeddedAreaChartBuilder
             abstract setTitle: chartTitle: string -> EmbeddedAreaChartBuilder
-            abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
+            //abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
-            abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
+            //abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
             abstract setXAxisTitle: title: string -> EmbeddedAreaChartBuilder
-            abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
-            abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
+            //abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
+            //abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
             abstract setYAxisTitle: title: string -> EmbeddedAreaChartBuilder
-            abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
+            //abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedAreaChartBuilder
             abstract useLogScale: unit -> EmbeddedAreaChartBuilder
 
         /// Builder for bar charts. For more details, see the Gviz
@@ -884,33 +884,33 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
             abstract reverseCategories: unit -> EmbeddedBarChartBuilder
             abstract reverseDirection: unit -> EmbeddedBarChartBuilder
             abstract setBackgroundColor: cssValue: string -> EmbeddedBarChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setColors: cssValues: ResizeArray<string> -> EmbeddedBarChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setLegendPosition: position: Charts.Position -> EmbeddedBarChartBuilder
-            abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setLegendPosition: position: Charts.Position -> EmbeddedBarChartBuilder
+            //abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setRange: start: float * ``end``: float -> EmbeddedBarChartBuilder
             abstract setStacked: unit -> EmbeddedBarChartBuilder
             abstract setTitle: chartTitle: string -> EmbeddedBarChartBuilder
-            abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
+            //abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
-            abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
+            //abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
             abstract setXAxisTitle: title: string -> EmbeddedBarChartBuilder
-            abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
-            abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
+            //abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
+            //abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
             abstract setYAxisTitle: title: string -> EmbeddedBarChartBuilder
-            abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
+            //abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedBarChartBuilder
             abstract useLogScale: unit -> EmbeddedBarChartBuilder
 
         /// Represents a chart that has been embedded into a spreadsheet.
@@ -939,14 +939,14 @@ module GoogleAppsScript =
         ///       sheet.insertChart(chartBuilder.build());
         ///     }
         type [<AllowNullLiteral>] EmbeddedChart =
-            abstract getAs: contentType: string -> Base.Blob
-            abstract getBlob: unit -> Base.Blob
+            //abstract getAs: contentType: string -> Base.Blob
+            //abstract getBlob: unit -> Base.Blob
             abstract getChartId: unit -> Integer option
             abstract getContainerInfo: unit -> ContainerInfo
-            abstract getHiddenDimensionStrategy: unit -> Charts.ChartHiddenDimensionStrategy
-            abstract getMergeStrategy: unit -> Charts.ChartMergeStrategy
+            //abstract getHiddenDimensionStrategy: unit -> Charts.ChartHiddenDimensionStrategy
+            //abstract getMergeStrategy: unit -> Charts.ChartMergeStrategy
             abstract getNumHeaders: unit -> Integer
-            abstract getOptions: unit -> Charts.ChartOptions
+            //abstract getOptions: unit -> Charts.ChartOptions
             abstract getRanges: unit -> ResizeArray<Range>
             abstract getTransposeRowsAndColumns: unit -> bool
             abstract modify: unit -> EmbeddedChartBuilder
@@ -977,14 +977,14 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
-            abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
@@ -1004,32 +1004,32 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
             abstract reverseCategories: unit -> EmbeddedColumnChartBuilder
             abstract setBackgroundColor: cssValue: string -> EmbeddedColumnChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setColors: cssValues: ResizeArray<string> -> EmbeddedColumnChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setLegendPosition: position: Charts.Position -> EmbeddedColumnChartBuilder
-            abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setLegendPosition: position: Charts.Position -> EmbeddedColumnChartBuilder
+            //abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setRange: start: float * ``end``: float -> EmbeddedColumnChartBuilder
             abstract setStacked: unit -> EmbeddedColumnChartBuilder
             abstract setTitle: chartTitle: string -> EmbeddedColumnChartBuilder
-            abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
+            //abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
-            abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
+            //abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
             abstract setXAxisTitle: title: string -> EmbeddedColumnChartBuilder
-            abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
-            abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
+            //abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
+            //abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
             abstract setYAxisTitle: title: string -> EmbeddedColumnChartBuilder
-            abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
+            //abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedColumnChartBuilder
             abstract useLogScale: unit -> EmbeddedColumnChartBuilder
 
         /// Builder for combo charts. For more details, see the Gviz documentation.
@@ -1046,32 +1046,32 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
             abstract reverseCategories: unit -> EmbeddedComboChartBuilder
             abstract setBackgroundColor: cssValue: string -> EmbeddedComboChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setColors: cssValues: ResizeArray<string> -> EmbeddedComboChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setLegendPosition: position: Charts.Position -> EmbeddedComboChartBuilder
-            abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setLegendPosition: position: Charts.Position -> EmbeddedComboChartBuilder
+            //abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setRange: start: float * ``end``: float -> EmbeddedComboChartBuilder
             abstract setStacked: unit -> EmbeddedComboChartBuilder
             abstract setTitle: chartTitle: string -> EmbeddedComboChartBuilder
-            abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
+            //abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
-            abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
+            //abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
             abstract setXAxisTitle: title: string -> EmbeddedComboChartBuilder
-            abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
-            abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
+            //abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
+            //abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
             abstract setYAxisTitle: title: string -> EmbeddedComboChartBuilder
-            abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
+            //abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedComboChartBuilder
             abstract useLogScale: unit -> EmbeddedComboChartBuilder
 
         /// Builder for histogram charts. For more details, see the Gviz
@@ -1089,32 +1089,32 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
             abstract reverseCategories: unit -> EmbeddedHistogramChartBuilder
             abstract setBackgroundColor: cssValue: string -> EmbeddedHistogramChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setColors: cssValues: ResizeArray<string> -> EmbeddedHistogramChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setLegendPosition: position: Charts.Position -> EmbeddedHistogramChartBuilder
-            abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setLegendPosition: position: Charts.Position -> EmbeddedHistogramChartBuilder
+            //abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setRange: start: float * ``end``: float -> EmbeddedHistogramChartBuilder
             abstract setStacked: unit -> EmbeddedHistogramChartBuilder
             abstract setTitle: chartTitle: string -> EmbeddedHistogramChartBuilder
-            abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
+            //abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
-            abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
+            //abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
             abstract setXAxisTitle: title: string -> EmbeddedHistogramChartBuilder
-            abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
-            abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
+            //abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
+            //abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
             abstract setYAxisTitle: title: string -> EmbeddedHistogramChartBuilder
-            abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
+            //abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedHistogramChartBuilder
             abstract useLogScale: unit -> EmbeddedHistogramChartBuilder
 
         /// Builder for line charts. For more details, see the Gviz
@@ -1132,33 +1132,33 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
             abstract reverseCategories: unit -> EmbeddedLineChartBuilder
             abstract setBackgroundColor: cssValue: string -> EmbeddedLineChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setColors: cssValues: ResizeArray<string> -> EmbeddedLineChartBuilder
-            abstract setCurveStyle: style: Charts.CurveStyle -> EmbeddedLineChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setLegendPosition: position: Charts.Position -> EmbeddedLineChartBuilder
-            abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setCurveStyle: style: Charts.CurveStyle -> EmbeddedLineChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setLegendPosition: position: Charts.Position -> EmbeddedLineChartBuilder
+            //abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
-            abstract setPointStyle: style: Charts.PointStyle -> EmbeddedLineChartBuilder
+            //abstract setPointStyle: style: Charts.PointStyle -> EmbeddedLineChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setRange: start: float * ``end``: float -> EmbeddedLineChartBuilder
             abstract setTitle: chartTitle: string -> EmbeddedLineChartBuilder
-            abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
+            //abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
-            abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
+            //abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
             abstract setXAxisTitle: title: string -> EmbeddedLineChartBuilder
-            abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
-            abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
+            //abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
+            //abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
             abstract setYAxisTitle: title: string -> EmbeddedLineChartBuilder
-            abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
+            //abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedLineChartBuilder
             abstract useLogScale: unit -> EmbeddedLineChartBuilder
 
         /// Builder for pie charts. For more details, see the Gviz
@@ -1176,24 +1176,24 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
             abstract reverseCategories: unit -> EmbeddedPieChartBuilder
             abstract set3D: unit -> EmbeddedPieChartBuilder
             abstract setBackgroundColor: cssValue: string -> EmbeddedPieChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setColors: cssValues: ResizeArray<string> -> EmbeddedPieChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setLegendPosition: position: Charts.Position -> EmbeddedPieChartBuilder
-            abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedPieChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setLegendPosition: position: Charts.Position -> EmbeddedPieChartBuilder
+            //abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedPieChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setTitle: chartTitle: string -> EmbeddedPieChartBuilder
-            abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedPieChartBuilder
+            //abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedPieChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
 
         /// Builder for scatter charts. For more details, see the Gviz
@@ -1211,34 +1211,34 @@ module GoogleAppsScript =
             abstract asTableChart: unit -> EmbeddedTableChartBuilder
             abstract build: unit -> EmbeddedChart
             abstract clearRanges: unit -> EmbeddedChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
             abstract setBackgroundColor: cssValue: string -> EmbeddedScatterChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setColors: cssValues: ResizeArray<string> -> EmbeddedScatterChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
-            abstract setLegendPosition: position: Charts.Position -> EmbeddedScatterChartBuilder
-            abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setLegendPosition: position: Charts.Position -> EmbeddedScatterChartBuilder
+            //abstract setLegendTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
-            abstract setPointStyle: style: Charts.PointStyle -> EmbeddedScatterChartBuilder
+            //abstract setPointStyle: style: Charts.PointStyle -> EmbeddedScatterChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
             abstract setTitle: chartTitle: string -> EmbeddedScatterChartBuilder
-            abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
+            //abstract setTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
             abstract setTransposeRowsAndColumns: transpose: bool -> EmbeddedChartBuilder
             abstract setXAxisLogScale: unit -> EmbeddedScatterChartBuilder
             abstract setXAxisRange: start: float * ``end``: float -> EmbeddedScatterChartBuilder
-            abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
+            //abstract setXAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
             abstract setXAxisTitle: title: string -> EmbeddedScatterChartBuilder
-            abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
+            //abstract setXAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
             abstract setYAxisLogScale: unit -> EmbeddedScatterChartBuilder
             abstract setYAxisRange: start: float * ``end``: float -> EmbeddedScatterChartBuilder
-            abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
+            //abstract setYAxisTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
             abstract setYAxisTitle: title: string -> EmbeddedScatterChartBuilder
-            abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
+            //abstract setYAxisTitleTextStyle: textStyle: Charts.TextStyle -> EmbeddedScatterChartBuilder
 
         /// Builder for table charts. For more details, see the Gviz documentation.
         type [<AllowNullLiteral>] EmbeddedTableChartBuilder =
@@ -1259,16 +1259,16 @@ module GoogleAppsScript =
             abstract enablePaging: pageSize: Integer * startPage: Integer -> EmbeddedTableChartBuilder
             abstract enableRtlTable: rtlEnabled: bool -> EmbeddedTableChartBuilder
             abstract enableSorting: enableSorting: bool -> EmbeddedTableChartBuilder
-            abstract getChartType: unit -> Charts.ChartType
+            //abstract getChartType: unit -> Charts.ChartType
             abstract getContainer: unit -> ContainerInfo
             abstract getRanges: unit -> ResizeArray<Range>
             abstract removeRange: range: Range -> EmbeddedChartBuilder
-            abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
+            //abstract setChartType: ``type``: Charts.ChartType -> EmbeddedChartBuilder
             abstract setFirstRowNumber: number: Integer -> EmbeddedTableChartBuilder
-            abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
+            //abstract setHiddenDimensionStrategy: strategy: Charts.ChartHiddenDimensionStrategy -> EmbeddedChartBuilder
             abstract setInitialSortingAscending: column: Integer -> EmbeddedTableChartBuilder
             abstract setInitialSortingDescending: column: Integer -> EmbeddedTableChartBuilder
-            abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
+            //abstract setMergeStrategy: mergeStrategy: Charts.ChartMergeStrategy -> EmbeddedChartBuilder
             abstract setNumHeaders: headers: Integer -> EmbeddedChartBuilder
             abstract setOption: option: string * value: obj option -> EmbeddedChartBuilder
             abstract setPosition: anchorRowPos: Integer * anchorColPos: Integer * offsetX: Integer * offsetY: Integer -> EmbeddedChartBuilder
@@ -1418,7 +1418,7 @@ module GoogleAppsScript =
             abstract getUrl: unit -> string option
             abstract getWidth: unit -> Integer
             abstract remove: unit -> unit
-            abstract replace: blob: Base.BlobSource -> OverGridImage
+            //abstract replace: blob: Base.BlobSource -> OverGridImage
             abstract replace: url: string -> OverGridImage
             abstract resetSize: unit -> OverGridImage
             abstract setAltTextDescription: description: string -> OverGridImage
@@ -1572,12 +1572,12 @@ module GoogleAppsScript =
         ///     }
         type [<AllowNullLiteral>] Protection =
             abstract addEditor: emailAddress: string -> Protection
-            abstract addEditor: user: Base.User -> Protection
+            //abstract addEditor: user: Base.User -> Protection
             abstract addEditors: emailAddresses: ResizeArray<string> -> Protection
             abstract canDomainEdit: unit -> bool
             abstract canEdit: unit -> bool
             abstract getDescription: unit -> string
-            abstract getEditors: unit -> ResizeArray<Base.User>
+            //abstract getEditors: unit -> ResizeArray<Base.User>
             abstract getProtectionType: unit -> ProtectionType
             abstract getRange: unit -> Range
             abstract getRangeName: unit -> string option
@@ -1585,9 +1585,9 @@ module GoogleAppsScript =
             abstract isWarningOnly: unit -> bool
             abstract remove: unit -> unit
             abstract removeEditor: emailAddress: string -> Protection
-            abstract removeEditor: user: Base.User -> Protection
+            //abstract removeEditor: user: Base.User -> Protection
             abstract removeEditors: emailAddresses: ResizeArray<string> -> Protection
-            abstract removeEditors: users: ResizeArray<Base.User> -> Protection
+            //abstract removeEditors: users: ResizeArray<Base.User> -> Protection
             abstract setDescription: description: string -> Protection
             abstract setDomainEdit: editable: bool -> Protection
             abstract setNamedRange: namedRange: NamedRange -> Protection
@@ -1688,8 +1688,8 @@ module GoogleAppsScript =
             abstract getDataSourcePivotTables: unit -> ResizeArray<DataSourcePivotTable>
             abstract getDataSourceTables: unit -> ResizeArray<DataSourceTable>
             abstract getDataSourceUrl: unit -> string
-            abstract getDataTable: unit -> Charts.DataTable
-            abstract getDataTable: firstRowIsHeader: bool -> Charts.DataTable
+            //abstract getDataTable: unit -> Charts.DataTable
+            //abstract getDataTable: firstRowIsHeader: bool -> Charts.DataTable
             abstract getDataValidation: unit -> DataValidation option
             abstract getDataValidations: unit -> Array<Array<DataValidation option>>
             abstract getDeveloperMetadata: unit -> ResizeArray<DeveloperMetadata>
@@ -2053,8 +2053,8 @@ module GoogleAppsScript =
             abstract insertColumns: columnIndex: Integer * numColumns: Integer -> unit
             abstract insertColumnsAfter: afterPosition: Integer * howMany: Integer -> Sheet
             abstract insertColumnsBefore: beforePosition: Integer * howMany: Integer -> Sheet
-            abstract insertImage: blobSource: Base.BlobSource * column: Integer * row: Integer -> OverGridImage
-            abstract insertImage: blobSource: Base.BlobSource * column: Integer * row: Integer * offsetX: Integer * offsetY: Integer -> OverGridImage
+            //abstract insertImage: blobSource: Base.BlobSource * column: Integer * row: Integer -> OverGridImage
+            //abstract insertImage: blobSource: Base.BlobSource * column: Integer * row: Integer * offsetX: Integer * offsetY: Integer -> OverGridImage
             abstract insertImage: url: string * column: Integer * row: Integer -> OverGridImage
             abstract insertImage: url: string * column: Integer * row: Integer * offsetX: Integer * offsetY: Integer -> OverGridImage
             abstract insertRowAfter: afterPosition: Integer -> Sheet
@@ -2145,11 +2145,11 @@ module GoogleAppsScript =
             abstract addDeveloperMetadata: key: string * value: string -> Spreadsheet
             abstract addDeveloperMetadata: key: string * value: string * visibility: DeveloperMetadataVisibility -> Spreadsheet
             abstract addEditor: emailAddress: string -> Spreadsheet
-            abstract addEditor: user: Base.User -> Spreadsheet
+            //abstract addEditor: user: Base.User -> Spreadsheet
             abstract addEditors: emailAddresses: ResizeArray<string> -> Spreadsheet
             abstract addMenu: name: string * subMenus: Array<{| name: string; functionName: string |} option> -> unit
             abstract addViewer: emailAddress: string -> Spreadsheet
-            abstract addViewer: user: Base.User -> Spreadsheet
+            //abstract addViewer: user: Base.User -> Spreadsheet
             abstract addViewers: emailAddresses: ResizeArray<string> -> Spreadsheet
             abstract appendRow: rowContents: ResizeArray<obj option> -> Sheet
             abstract autoResizeColumn: columnPosition: Integer -> Sheet
@@ -2167,15 +2167,15 @@ module GoogleAppsScript =
             abstract getActiveRange: unit -> Range option
             abstract getActiveRangeList: unit -> RangeList option
             abstract getActiveSheet: unit -> Sheet
-            abstract getAs: contentType: string -> Base.Blob
+            //abstract getAs: contentType: string -> Base.Blob
             abstract getBandings: unit -> ResizeArray<Banding>
-            abstract getBlob: unit -> Base.Blob
+            //abstract getBlob: unit -> Base.Blob
             abstract getColumnWidth: columnPosition: Integer -> Integer
             abstract getCurrentCell: unit -> Range option
             abstract getDataRange: unit -> Range
             abstract getDataSourceTables: unit -> ResizeArray<DataSourceTable>
             abstract getDeveloperMetadata: unit -> ResizeArray<DeveloperMetadata>
-            abstract getEditors: unit -> ResizeArray<Base.User>
+            //abstract getEditors: unit -> ResizeArray<Base.User>
             abstract getFormUrl: unit -> string option
             abstract getFrozenColumns: unit -> Integer
             abstract getFrozenRows: unit -> Integer
@@ -2188,7 +2188,7 @@ module GoogleAppsScript =
             abstract getName: unit -> string
             abstract getNamedRanges: unit -> ResizeArray<NamedRange>
             abstract getNumSheets: unit -> Integer
-            abstract getOwner: unit -> Base.User option
+            //abstract getOwner: unit -> Base.User option
             abstract getPredefinedSpreadsheetThemes: unit -> ResizeArray<SpreadsheetTheme>
             abstract getProtections: ``type``: ProtectionType -> ResizeArray<Protection>
             abstract getRange: a1Notation: string -> Range
@@ -2206,15 +2206,15 @@ module GoogleAppsScript =
             abstract getSpreadsheetTheme: unit -> SpreadsheetTheme option
             abstract getSpreadsheetTimeZone: unit -> string
             abstract getUrl: unit -> string
-            abstract getViewers: unit -> ResizeArray<Base.User>
+            //abstract getViewers: unit -> ResizeArray<Base.User>
             abstract hideColumn: column: Range -> unit
             abstract hideRow: row: Range -> unit
             abstract insertColumnAfter: afterPosition: Integer -> Sheet
             abstract insertColumnBefore: beforePosition: Integer -> Sheet
             abstract insertColumnsAfter: afterPosition: Integer * howMany: Integer -> Sheet
             abstract insertColumnsBefore: beforePosition: Integer * howMany: Integer -> Sheet
-            abstract insertImage: blobSource: Base.BlobSource * column: Integer * row: Integer -> OverGridImage
-            abstract insertImage: blobSource: Base.BlobSource * column: Integer * row: Integer * offsetX: Integer * offsetY: Integer -> OverGridImage
+            //abstract insertImage: blobSource: Base.BlobSource * column: Integer * row: Integer -> OverGridImage
+            //abstract insertImage: blobSource: Base.BlobSource * column: Integer * row: Integer * offsetX: Integer * offsetY: Integer -> OverGridImage
             abstract insertImage: url: string * column: Integer * row: Integer -> OverGridImage
             abstract insertImage: url: string * column: Integer * row: Integer * offsetX: Integer * offsetY: Integer -> OverGridImage
             abstract insertRowAfter: afterPosition: Integer -> Sheet
@@ -2237,11 +2237,11 @@ module GoogleAppsScript =
             abstract moveActiveSheet: pos: Integer -> unit
             abstract moveChartToObjectSheet: chart: EmbeddedChart -> Sheet
             abstract removeEditor: emailAddress: string -> Spreadsheet
-            abstract removeEditor: user: Base.User -> Spreadsheet
+            //abstract removeEditor: user: Base.User -> Spreadsheet
             abstract removeMenu: name: string -> unit
             abstract removeNamedRange: name: string -> unit
             abstract removeViewer: emailAddress: string -> Spreadsheet
-            abstract removeViewer: user: Base.User -> Spreadsheet
+            //abstract removeViewer: user: Base.User -> Spreadsheet
             abstract rename: newName: string -> unit
             abstract renameActiveSheet: newName: string -> unit
             abstract resetSpreadsheetTheme: unit -> SpreadsheetTheme
@@ -2264,7 +2264,7 @@ module GoogleAppsScript =
             abstract setSpreadsheetLocale: locale: string -> unit
             abstract setSpreadsheetTheme: theme: SpreadsheetTheme -> SpreadsheetTheme
             abstract setSpreadsheetTimeZone: timezone: string -> unit
-            abstract show: userInterface: HTML.HtmlOutput -> unit
+            //abstract show: userInterface: HTML.HtmlOutput -> unit
             abstract sort: columnPosition: Integer -> Sheet
             abstract sort: columnPosition: Integer * ascending: bool -> Sheet
             abstract toast: msg: string -> unit
@@ -2326,7 +2326,7 @@ module GoogleAppsScript =
             abstract getActiveSpreadsheet: unit -> Spreadsheet
             abstract getCurrentCell: unit -> Range
             abstract getSelection: unit -> Selection
-            abstract getUi: unit -> Base.Ui
+            //abstract getUi: unit -> Base.Ui
             abstract newCellImage: unit -> CellImageBuilder
             abstract newColor: unit -> ColorBuilder
             abstract newConditionalFormatRule: unit -> ConditionalFormatRuleBuilder
@@ -2335,7 +2335,7 @@ module GoogleAppsScript =
             abstract newFilterCriteria: unit -> FilterCriteriaBuilder
             abstract newRichTextValue: unit -> RichTextValueBuilder
             abstract newTextStyle: unit -> TextStyleBuilder
-            abstract ``open``: file: Drive.File -> Spreadsheet
+            //abstract ``open``: file: Drive.File -> Spreadsheet
             abstract openById: id: string -> Spreadsheet
             abstract openByUrl: url: string -> Spreadsheet
             abstract setActiveRange: range: Range -> Range
