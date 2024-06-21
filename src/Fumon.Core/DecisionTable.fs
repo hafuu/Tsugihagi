@@ -7,7 +7,7 @@ type ParameterDefinition = {
 
 type Row = Map<string, string>
 
-let create (parameters: ParameterDefinition[]): seq<Row> =
+let create (parameters: ParameterDefinition[]): Row seq =
     parameters
     |> Seq.fold (fun rows p ->
         rows

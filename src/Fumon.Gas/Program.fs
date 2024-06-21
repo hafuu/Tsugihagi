@@ -3,48 +3,19 @@ module Program
 open Fable.Core
 open Fumon.Core
 open TypeDefinitions.Gas
+open Fumon.Gas
 
-let x() =
-    DecisionTable.create [|
-        {
-          Name = "p1"
-          Values = [| "a"; "b"; "c" |]
-        }
-        {
-          Name = "p2"
-          Values = [| "1"; "2" |]
-        }
-        {
-          Name = "p3"
-          Values = [| "あ"; |]
-        }
-    |]
-    |> Seq.length
-    |> string
-
-let testGas() =
-    let spreadSheet = SpreadsheetApp.getActive()
-    let sheet = spreadSheet.getActiveSheet()
-    $"{spreadSheet.getName()}の{sheet.getName()}です"
-
-
-[<Emit("new Date($0, $1, $2)")>]
-let createDate (year: int) (month: int) (day): GoogleAppsScript.Base.Date = jsNative
-
-let testDate() =
-    let d = createDate 2024 6 20
-    d.ToString()
+let generateDecisionTable() =
+    let sheet = SpreadsheetApp.getActiveSheet()
+    let parameters = ParameterReader.read 3 2 sheet
+    let table = DecisionTable.create parameters
+    DecisionTableWriter.write parameters table 10 2 sheet
     
-
 type GlobalExports = {
-    mutable x: unit -> string
-    mutable testGas: unit -> string
-    mutable testDate: unit -> string
+    mutable generateDecisionTable: unit -> unit
 }
 
 [<Global>]
 let ``global``: GlobalExports = jsNative
 
-``global``.x <- x
-``global``.testGas <- testGas
-``global``.testDate <- testDate
+``global``.generateDecisionTable <- generateDecisionTable
