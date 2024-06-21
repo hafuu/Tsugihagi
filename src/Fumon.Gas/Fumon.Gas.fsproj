@@ -5,8 +5,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TypeDefinitions\GoogleAppsScript.fs" />
     <None Include="paket.references" />
+    <Compile Include="TypeDefinitions\GoogleAppsScript.fs" />
     <Compile Include="GoogleSpreadsheetWrapper.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

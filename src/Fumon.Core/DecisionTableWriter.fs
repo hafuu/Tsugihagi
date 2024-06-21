@@ -11,19 +11,19 @@ let writeHeaders (parameters: ParameterDefinition[]) (row: int) (startColumn: in
         cell.SetValue(Some (definition.Name))
     )
 
-let writeTable (parameters: ParameterDefinition[]) (table: Combination seq) (startRow: int) (startColumn: int) (sheet: ISheet): unit =
+let writeTable (parameters: ParameterDefinition[]) (table: Combination seq) (beginRow: int) (beginColumn: int) (sheet: ISheet): unit =
     table
     |> Seq.iteri (fun rowOffset combination ->
-        let row = startRow + rowOffset
+        let row = beginRow + rowOffset
         parameters
         |> Array.iteri (fun columnOffset parameter ->
-            let column = startColumn + columnOffset
+            let column = beginColumn + columnOffset
             let value = combination |> Map.find parameter.Name
             let cell = sheet.GetCell(row, column)
             cell.SetValue(Some value)
         )
     )
 
-let write (parameters: ParameterDefinition[]) (table: Combination seq) (startRow: int) (startColumn: int) (sheet: ISheet): unit =
-    writeHeaders parameters startRow startColumn sheet
-    writeTable parameters table (startRow + 1) startColumn sheet
+let write (parameters: ParameterDefinition[]) (table: Combination seq) (beginRow: int) (beginColumn: int) (sheet: ISheet): unit =
+    writeHeaders parameters beginRow beginColumn sheet
+    writeTable parameters table (beginRow + 1) beginColumn sheet
