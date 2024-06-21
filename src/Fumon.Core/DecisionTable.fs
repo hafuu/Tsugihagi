@@ -1,13 +1,8 @@
 module Fumon.Core.DecisionTable
 
-type ParameterDefinition = {
-  Name: string
-  Values: string[]
-}
+open Fumon.Core.Types
 
-type Row = Map<string, string>
-
-let create (parameters: ParameterDefinition[]): Row seq =
+let create (parameters: ParameterDefinition[]): Combination seq =
     parameters
     |> Seq.fold (fun rows p ->
         rows

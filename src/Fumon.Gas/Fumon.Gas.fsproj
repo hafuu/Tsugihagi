@@ -7,8 +7,7 @@
   <ItemGroup>
     <Compile Include="TypeDefinitions\GoogleAppsScript.fs" />
     <None Include="paket.references" />
-    <Compile Include="ParameterReader.fs" />
-    <Compile Include="DecisionTableWriter.fs" />
+    <Compile Include="GoogleSpreadsheetWrapper.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

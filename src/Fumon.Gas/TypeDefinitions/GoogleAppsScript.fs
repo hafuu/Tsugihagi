@@ -25,11 +25,9 @@ type JdbcSQL_XML =
 
 type Array<'T> = System.Collections.Generic.IList<'T>
 
-[<AutoOpen>]
-module Globals =
-    let [<Emit("SpreadsheetApp")>] SpreadsheetApp:GoogleAppsScript.Spreadsheet.SpreadsheetApp = jsNative
+let [<Global>] SpreadsheetApp:GoogleAppsScript.Spreadsheet.SpreadsheetApp = jsNative
 
-    let [<Emit("Utilities")>] Utilities:GoogleAppsScript.Utilities.Utilities = jsNative
+let [<Global>] Utilities:GoogleAppsScript.Utilities.Utilities = jsNative
 
 module GoogleAppsScript =
 

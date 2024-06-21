@@ -4,10 +4,11 @@ open NUnit.Framework
 open FsUnitTyped
 
 open Fumon.Core
+open Fumon.Core.Types
 
 [<Test>]
 let ``デシジョンテーブルを作成できる``() =
-    let parameters: DecisionTable.ParameterDefinition[] = [|
+    let parameters: ParameterDefinition[] = [|
         {
             Name = "p1"
             Values = [| "a"; "b"; "c" |]
