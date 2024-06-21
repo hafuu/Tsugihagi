@@ -8,7 +8,7 @@ let writeHeaders (parameters: ParameterDefinition[]) (row: int) (startColumn: in
     |> Array.iteri (fun index definition ->
         let column = startColumn + index
         let cell = sheet.GetCell(row, column)
-        cell.SetValue(Some (definition.Name)) |> ignore
+        cell.SetValue(Some (definition.Name))
     )
 
 let writeTable (parameters: ParameterDefinition[]) (table: Combination seq) (startRow: int) (startColumn: int) (sheet: ISheet): unit =
@@ -20,7 +20,7 @@ let writeTable (parameters: ParameterDefinition[]) (table: Combination seq) (sta
             let column = startColumn + columnOffset
             let value = combination |> Map.find parameter.Name
             let cell = sheet.GetCell(row, column)
-            cell.SetValue(Some value) |> ignore
+            cell.SetValue(Some value)
         )
     )
 
