@@ -311,13 +311,14 @@ module GoogleAppsScript =
             | CUSTOM_FORMULA = 21
 
         /// Styles that can be set on a range using Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
-        type [<RequireQualifiedAccess>] BorderStyle =
-            | DOTTED = 0
-            | DASHED = 1
-            | SOLID = 2
-            | SOLID_MEDIUM = 3
-            | SOLID_THICK = 4
-            | DOUBLE = 5
+        type BorderStyle = interface end
+        module BorderStyle =
+            let [<Emit("SpreadsheetApp.BorderStyle.DOTTED")>] DOTTED: BorderStyle = jsNative
+            let [<Emit("SpreadsheetApp.BorderStyle.DASHED")>] DASHED: BorderStyle = jsNative
+            let [<Emit("SpreadsheetApp.BorderStyle.SOLID")>] SOLID: BorderStyle = jsNative
+            let [<Emit("SpreadsheetApp.BorderStyle.SOLID_MEDIUM")>] SOLID_MEDIUM: BorderStyle = jsNative
+            let [<Emit("SpreadsheetApp.BorderStyle.SOLID_THICK")>] SOLID_THICK: BorderStyle = jsNative
+            let [<Emit("SpreadsheetApp.BorderStyle.DOUBLE")>] DOUBLE: BorderStyle = jsNative
 
         /// Represents an image to add to a cell. To add an image to a cell, you must create a new image
         /// value for the image using SpreadsheetApp.newCellImage() and CellImageBuilder. Then you can
