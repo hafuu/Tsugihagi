@@ -1,4 +1,4 @@
-module Fumon.Core.DecisionTableWriter
+module Fumon.Core.TableWriter
 
 open Fumon.Core.Types
 open Fumon.Core.Types.Spreadsheet

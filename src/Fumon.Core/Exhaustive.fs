@@ -1,4 +1,4 @@
-module Fumon.Core.DecisionTable
+module Fumon.Core.Exhaustive
 
 open Fumon.Core.Types
 

@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="paket.references" />
-    <Compile Include="DecisionTableTest.fs" />
+    <Compile Include="ExhaustiveTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fumon.Core\Fumon.Core.fsproj" />

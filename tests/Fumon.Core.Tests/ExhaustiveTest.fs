@@ -23,7 +23,7 @@ let ``デシジョンテーブルを作成できる``() =
         }
     |]
     
-    let actual = DecisionTable.create parameters |> Seq.toArray
+    let actual = Exhaustive.create parameters |> Seq.toArray
 
     let createRow v1 v2 v3 = Map.ofList [("p1", v1); ("p2", v2); ("p3", v3)]
     
