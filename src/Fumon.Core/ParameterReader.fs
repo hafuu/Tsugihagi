@@ -9,8 +9,9 @@ let rec findParameterHeaderIndex (row: int) (column: int) (sheet: ISheet): int =
     | Some value when string value = "パラメーター" -> row
     | Some _ | None -> findParameterHeaderIndex (row + 1) (column) sheet
 
-let read (beginColumn: int) (sheet: ISheet): ParameterDefinition[] * int =
-    let beginRow = findParameterHeaderIndex 1 beginColumn sheet + 1
+let read (config: Configuration) (sheet: ISheet): ParameterDefinition[] * int =
+    let beginColumn = config.BeginParameterColumn
+    let beginRow = findParameterHeaderIndex config.BeginParameterRow beginColumn sheet + 1
     let rec read' (column: int) (acc: _ list)=
         let cell = sheet.GetCell(beginRow, column)
         match cell.GetCellData() with

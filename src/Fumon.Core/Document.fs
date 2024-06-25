@@ -3,7 +3,11 @@ module Fumon.Core.Document
 open Fumon.Core.Types.Spreadsheet
 
 let generate (spreadsheet: ISpreadsheet): unit =
+    let config =
+        spreadsheet.TryGetSheet("設定")
+        |> Option.map Configuration.read
+        |> Option.defaultValue Configuration.defaultConfig
     let sheet = spreadsheet.GetActiveSheet()
-    let parameters, parameterEndRow = ParameterReader.read 2 sheet
+    let parameters, parameterEndRow = ParameterReader.read config sheet
     let table = Exhaustive.create parameters
-    TableWriter.write parameters table (parameterEndRow + 2) 2 sheet
+    TableWriter.write config parameters table (parameterEndRow + 2) sheet

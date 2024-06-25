@@ -51,6 +51,7 @@ module rec Spreadsheet =
 
     type ISpreadsheet =
         abstract member GetActiveSheet: unit -> ISheet
+        abstract member TryGetSheet: name: string -> ISheet option
 
 open Spreadsheet
 
@@ -61,6 +62,15 @@ type CellData = {
     HorizontalAlignment: HorizontalAlignment
     VerticalAlignment: VerticalAlignment
     WrapStrategy: WrapStrategy
+}
+
+type Configuration = {
+    BeginParameterRow: int
+    BeginParameterColumn: int
+    ParameterThreshold: int
+    ParameterHeaders: string[]
+    RowNumberHeader: CellData
+    ExtraColumns: CellData[]
 }
 
 type ParameterDefinition = {

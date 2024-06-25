@@ -104,5 +104,6 @@ type SheetWrapper(sheet: Sheet) =
 type SpreadsheetWrapper(spreadsheet: Spreadsheet) =
     interface ISpreadsheet with
       member _.GetActiveSheet(): ISheet = SheetWrapper(spreadsheet.getActiveSheet())
+      member _.TryGetSheet(name: string): ISheet option = spreadsheet.getSheetByName(name) |> Option.map (fun s -> SheetWrapper(s))
 
 let wrap (app: SpreadsheetApp) = SpreadsheetWrapper(app.getActiveSpreadsheet())

@@ -8,6 +8,7 @@
     <None Include="paket.references" />
     <Compile Include="Types.fs" />
     <Compile Include="Exhaustive.fs" />
+    <Compile Include="Configuration.fs" />
     <Compile Include="ParameterReader.fs" />
     <Compile Include="TableWriter.fs" />
     <Compile Include="Document.fs" />
