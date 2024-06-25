@@ -8,6 +8,10 @@ let readCellData (cell: ICell): CellData option =
     |> Option.map (fun value -> {
         Value = value
         BackgroundColor = cell.GetBackgroundColor()
+        FontColor = cell.GetFontColor()
+        HorizontalAlignment = cell.GetHorizontalAlignment()
+        VerticalAlignment = cell.GetVerticalAlignment()
+        WrapStrategy = cell.GetWrapStrategy()
     })
 
 let rec findParameterHeaderIndex (row: int) (column: int) (sheet: ISheet): int =

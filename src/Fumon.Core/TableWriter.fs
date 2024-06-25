@@ -6,6 +6,10 @@ open Fumon.Core.Types.Spreadsheet
 let writeCellData (cellData: CellData) (cell: ICell): unit =
     cell.SetValue(Some cellData.Value)
     cell.SetBackgroundColor(cellData.BackgroundColor)
+    cell.SetFontColor(cellData.FontColor)
+    cell.SetHorizontalAlignment(cellData.HorizontalAlignment)
+    cell.SetVerticalAlignment(cellData.VerticalAlignment)
+    cell.SetWrapStrategy(cellData.WrapStrategy)
 
 let writeHeaders (parameters: ParameterDefinition[]) (row: int) (startColumn: int) (sheet: ISheet): unit =
     sheet.GetCell(row, startColumn - 1).SetValue(Some "No.")

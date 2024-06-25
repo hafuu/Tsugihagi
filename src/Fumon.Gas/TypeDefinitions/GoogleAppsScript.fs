@@ -2455,10 +2455,13 @@ module GoogleAppsScript =
             | IMAGE = 0
 
         /// An enumeration of the strategies used to handle cell text wrapping.
-        type [<RequireQualifiedAccess>] WrapStrategy =
-            | WRAP = 0
-            | OVERFLOW = 1
-            | CLIP = 2
+
+
+        type WrapStrategy = interface end
+        module WrapStrategy =
+            let [<Emit("SpreadsheetApp.WrapStrategy.WRAP")>] WRAP: WrapStrategy = jsNative
+            let [<Emit("SpreadsheetApp.WrapStrategy.OVERFLOW")>] OVERFLOW: WrapStrategy = jsNative
+            let [<Emit("SpreadsheetApp.WrapStrategy.CLIP")>] CLIP: WrapStrategy = jsNative
 
         type [<StringEnum>] [<RequireQualifiedAccess>] RangeSetHorizontalAlignment =
             | Left
