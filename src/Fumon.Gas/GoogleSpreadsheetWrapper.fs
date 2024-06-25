@@ -17,6 +17,15 @@ type CellWrapper(cell: Range) =
         )
       member _.SetValue(value: string option): unit =
         cell.setValue(value |> Option.map box) |> ignore
+      member _.GetBackgroundColor(): string option = 
+        let color = cell.getBackground()
+        if String.IsNullOrWhiteSpace(color) then
+            None
+        else
+            Some color
+      member _.SetBackgroundColor(color: string option): unit = 
+        cell.setBackground(color) |> ignore
+      
 
 type RangeWrapper(range: Range) =
     interface IRange with

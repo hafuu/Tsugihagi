@@ -7,6 +7,6 @@ let create (parameters: ParameterDefinition[]): Combination seq =
     |> Seq.fold (fun rows p ->
         rows
         |> Seq.collect (fun row ->
-            p.Values |> Seq.map (fun value -> Map.add p.Name value row)
+            p.Values |> Seq.map (fun value -> Map.add p.Name.Value value row)
         )
     ) (Seq.singleton (Map.empty))

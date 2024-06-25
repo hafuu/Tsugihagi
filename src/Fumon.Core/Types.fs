@@ -8,6 +8,8 @@ module rec Spreadsheet =
     type ICell =
         abstract member GetValue: unit -> string option
         abstract member SetValue: value: string option -> unit
+        abstract member GetBackgroundColor: unit -> string option
+        abstract member SetBackgroundColor: color: string option -> unit
 
     type IRange =
         abstract member SetBorder: ?top: bool * ?left: bool * ?bottom: bool * ?right: bool * ?vertical: bool * ?horizontal: bool * ?style: BorderStyle -> unit
@@ -20,9 +22,14 @@ module rec Spreadsheet =
         abstract member GetActiveSheet: unit -> ISheet
 
 
-type ParameterDefinition = {
-  Name: string
-  Values: string[]
+type CellData = {
+    BackgroundColor: string option
+    Value: string
 }
 
-type Combination = Map<string, string>
+type ParameterDefinition = {
+  Name: CellData
+  Values: CellData[]
+}
+
+type Combination = Map<string, CellData>

@@ -3,6 +3,10 @@ module Fumon.Core.TableWriter
 open Fumon.Core.Types
 open Fumon.Core.Types.Spreadsheet
 
+let writeCellData (cellData: CellData) (cell: ICell): unit =
+    cell.SetValue(Some cellData.Value)
+    cell.SetBackgroundColor(cellData.BackgroundColor)
+
 let writeHeaders (parameters: ParameterDefinition[]) (row: int) (startColumn: int) (sheet: ISheet): unit =
     sheet.GetCell(row, startColumn - 1).SetValue(Some "No.")
 
@@ -10,7 +14,8 @@ let writeHeaders (parameters: ParameterDefinition[]) (row: int) (startColumn: in
     |> Array.iteri (fun index definition ->
         let column = startColumn + index
         let cell = sheet.GetCell(row, column)
-        cell.SetValue(Some (definition.Name))
+        let name = definition.Name
+        writeCellData name cell
     )
 
     sheet.GetCell(row, startColumn + parameters.Length).SetValue(Some "備考")
@@ -27,9 +32,9 @@ let writeTable (parameters: ParameterDefinition[]) (table: Combination seq) (beg
         parameters
         |> Array.iteri (fun columnOffset parameter ->
             let column = beginColumn + columnOffset
-            let value = combination |> Map.find parameter.Name
+            let parameterValue = combination |> Map.find parameter.Name.Value
             let cell = sheet.GetCell(row, column)
-            cell.SetValue(Some value)
+            writeCellData parameterValue cell
         )
 
         numRows <- rowNo
