@@ -69,3 +69,42 @@ type ParameterDefinition = {
 }
 
 type Combination = Map<string, CellData>
+
+[<AutoOpen>]
+module rec Extensions =
+    type ICell with
+        member this.GetCellData(): CellData option =
+            this.GetValue()
+            |> Option.map (fun value -> {
+                Value = value
+                BackgroundColor = this.GetBackgroundColor()
+                FontColor = this.GetFontColor()
+                HorizontalAlignment = this.GetHorizontalAlignment()
+                VerticalAlignment = this.GetVerticalAlignment()
+                WrapStrategy = this.GetWrapStrategy()
+            })
+
+        member this.WriteCellData(cellData: CellData): unit =
+            this.SetValue(Some cellData.Value)
+            this.SetBackgroundColor(cellData.BackgroundColor)
+            this.SetFontColor(cellData.FontColor)
+            this.SetHorizontalAlignment(cellData.HorizontalAlignment)
+            this.SetVerticalAlignment(cellData.VerticalAlignment)
+            this.SetWrapStrategy(cellData.WrapStrategy)
+
+    type ISheet with
+        member this.GetValuesHorizontal(row: int, beginColumn: int): CellData[] =
+            let rec read' (column: int) (acc: _ list) =
+                let cell = this.GetCell(row, column)
+                match cell.GetCellData() with
+                | Some value -> read' (column + 1) (value :: acc)
+                | None -> acc
+            read' beginColumn [] |> List.toArray |> Array.rev
+
+        member this.GetValuesVertical(beginRow: int, column: int): CellData[] =
+            let rec read' (row: int) (acc: _ list)=
+                let cell = this.GetCell(row, column)
+                match cell.GetCellData() with
+                | Some value -> read' (row + 1) (value :: acc)
+                | None -> acc
+            read' beginRow [] |> List.toArray |> Array.rev
