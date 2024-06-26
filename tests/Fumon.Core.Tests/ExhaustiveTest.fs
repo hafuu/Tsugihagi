@@ -5,27 +5,37 @@ open FsUnitTyped
 
 open Fumon.Core
 open Fumon.Core.Types
+open Fumon.Core.Types.Spreadsheet
+
+let v (value: string): CellData = {
+    Value = value
+    BackgroundColor = None
+    FontColor = None
+    HorizontalAlignment = Normal
+    VerticalAlignment = Middle
+    WrapStrategy = Overflow
+}
 
 [<Test>]
 let ``デシジョンテーブルを作成できる``() =
     let parameters: ParameterDefinition[] = [|
         {
-            Name = "p1"
-            Values = [| "a"; "b"; "c" |]
+            Name = v "p1"
+            Values = [| v "a"; v "b"; v "c" |]
         }
         {
-            Name = "p2"
-            Values = [| "1"; "2" |]
+            Name = v "p2"
+            Values = [| v "1"; v "2" |]
         }
         {
-            Name = "p3"
-            Values = [| "あ"; |]
+            Name = v "p3"
+            Values = [| v "あ"; |]
         }
     |]
     
     let actual = Exhaustive.create parameters |> Seq.toArray
 
-    let createRow v1 v2 v3 = Map.ofList [("p1", v1); ("p2", v2); ("p3", v3)]
+    let createRow v1 v2 v3 = Map.ofList [("p1", v v1); ("p2", v v2); ("p3", v v3)]
     
     let expected = [|
         createRow "a" "1" "あ"
