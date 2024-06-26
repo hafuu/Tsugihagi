@@ -1,0 +1,9 @@
+group Build
+FSharp.Core
+Fake.IO.FileSystem
+Fake.Core.ReleaseNotes
+Fake.Core.Environment
+Fake.Core.Process
+Fake.Core.Target
+Fake.Dotnet.Cli
+Fake.Dotnet.AssemblyInfoFile

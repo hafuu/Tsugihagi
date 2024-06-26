@@ -1,12 +1,26 @@
-source https://api.nuget.org/v3/index.json
+group Main
+    source https://api.nuget.org/v3/index.json
+    storage: none
+    framework: net8.0
 
-storage: none
-framework: net8.0
+    nuget FSharp.Core
+    nuget Fable.Core
 
-nuget FSharp.Core
-nuget Fable.Core
+    nuget FsUnit
+    nuget NUnit
+    nuget Microsoft.NET.Test.Sdk
+    nuget NUnit3TestAdapter
 
-nuget FsUnit
-nuget NUnit
-nuget Microsoft.NET.Test.Sdk
-nuget NUnit3TestAdapter
+group Build
+    source https://api.nuget.org/v3/index.json
+    storage: none
+    framework: net8.0
+
+    nuget FSharp.Core
+    nuget Fake.IO.FileSystem
+    nuget Fake.Core.ReleaseNotes
+    nuget Fake.Core.Environment
+    nuget Fake.Core.Process
+    nuget Fake.Core.Target
+    nuget Fake.Dotnet.Cli
+    nuget Fake.Dotnet.AssemblyInfoFile
