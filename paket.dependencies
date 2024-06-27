@@ -24,3 +24,4 @@ group Build
     nuget Fake.Core.Target
     nuget Fake.Dotnet.Cli
     nuget Fake.Dotnet.AssemblyInfoFile
+    nuget Fake.JavaScript.Npm

@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="paket.references" />
+    <Compile Include="AssemblyInfo.fs" />
     <Compile Include="TypeDefinitions\GoogleAppsScript.fs" />
     <Compile Include="GoogleSpreadsheetWrapper.fs" />
     <Compile Include="Program.fs" />
