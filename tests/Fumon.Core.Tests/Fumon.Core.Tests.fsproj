@@ -7,6 +7,7 @@
   <ItemGroup>
     <None Include="paket.references" />
     <Compile Include="ExhaustiveTest.fs" />
+    <Compile Include="ConstraintParserTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fumon.Core\Fumon.Core.fsproj" />

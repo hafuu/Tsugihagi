@@ -80,6 +80,49 @@ type ParameterDefinition = {
 
 type Combination = Map<string, CellData>
 
+module rec ConstraintExpression =
+    type Constraints = Constraint[]
+
+    type Constraint =
+        | ConditionalConstraint of ifPredicate: Predicate * thenPredicate: Predicate * elsePredicate: Predicate option
+        | UnconditionalConstraint of Predicate
+
+    type Predicate =
+        | ClausePredicate of Clause
+        | LogicalOperatorPredicate of Clause * LogicalOperator * Predicate
+
+    type Clause =
+        | TermClause of Term
+        | PredicateClause of Predicate
+        | NotClause of Clause
+
+    type Term =
+        | RelationTerm of Factor * Relation * Factor
+        | LikeTerm of name: string * pattern: string
+        | InTerm of Factor * Factor[]
+
+    type Factor =
+        | NameFactor of string
+        | ValueFactor of Value
+
+    type LogicalOperator =
+        | And
+        | Or
+
+    type Relation =
+        | Equal
+        | NotEqual
+        | GreaterThan
+        | GreaterThanOrEqual
+        | LessThan
+        | LessThanOrEqual
+
+    type Value =
+        | StringValue of string
+        | IntValue of int
+
+type Constraints = ConstraintExpression.Constraints
+
 [<AutoOpen>]
 module rec Extensions =
     type ICell with
