@@ -6,6 +6,8 @@ group Main
     nuget FSharp.Core
     nuget Fable.Core
 
+    github cannorin/Parsec.fs Parsec.fs
+
     nuget FsUnit
     nuget NUnit
     nuget Microsoft.NET.Test.Sdk

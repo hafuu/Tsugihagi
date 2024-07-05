@@ -5,6 +5,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\paket-files\cannorin\Parsec.fs\Parsec.fs">
+      <Paket>True</Paket>
+      <Link>paket-files/Parsec.fs</Link>
+    </Compile>
     <None Include="paket.references" />
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Types.fs" />

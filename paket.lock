@@ -22,7 +22,9 @@ NUGET
     System.Collections.Immutable (8.0)
     System.Reflection.Metadata (8.0)
       System.Collections.Immutable (>= 8.0)
-
+GITHUB
+  remote: cannorin/Parsec.fs
+    Parsec.fs (d088e475905f5f5f10ef259254d6b2551a5b1a07)
 GROUP Build
 STORAGE: NONE
 RESTRICTION: == net8.0
