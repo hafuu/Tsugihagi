@@ -93,7 +93,7 @@ module rec ConstraintExpression =
 
     type Clause =
         | TermClause of Term
-        | PredicateClause of Predicate
+        | ParenPredicateClause of Predicate
         | NotClause of Clause
 
     type Term =

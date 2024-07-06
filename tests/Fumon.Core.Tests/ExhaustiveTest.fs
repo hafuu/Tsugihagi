@@ -5,16 +5,7 @@ open FsUnitTyped
 
 open Fumon.Core
 open Fumon.Core.Types
-open Fumon.Core.Types.Spreadsheet
-
-let v (value: string): CellData = {
-    Value = value
-    BackgroundColor = None
-    FontColor = None
-    HorizontalAlignment = Normal
-    VerticalAlignment = Middle
-    WrapStrategy = Overflow
-}
+open Utils
 
 [<Test>]
 let ``デシジョンテーブルを作成できる``() =

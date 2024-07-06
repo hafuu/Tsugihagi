@@ -15,6 +15,7 @@ let parseCases =
         (["[hoge]"; "="; "30"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", Equal,intValue 30))))|])
         (["30"; "="; "[hoge]"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(intValue 30, Equal, name "hoge"))))|])
         (["[hoge]"; "="; "\"piyo\""], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", Equal, ValueFactor(StringValue "piyo")))))|])
+        (["[hoge]"; "="; "'piyo'"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", Equal, ValueFactor(StringValue "piyo")))))|])
 
         (["[hoge]"; "="; "30"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", Equal, intValue 30))))|])
         (["[hoge]"; "<>"; "30"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", NotEqual, intValue 30))))|])
@@ -31,7 +32,7 @@ let parseCases =
         (["not"; "[hoge]"; "="; "30"], [|UnconditionalConstraint(ClausePredicate(NotClause(TermClause(RelationTerm(name "hoge", Equal, intValue 30)))))|])
         (["NOT"; "[hoge]"; "="; "30"], [|UnconditionalConstraint(ClausePredicate(NotClause(TermClause(RelationTerm(name "hoge", Equal, intValue 30)))))|])
 
-        (["("; "[hoge]"; "="; "30"; ")"], [|UnconditionalConstraint(ClausePredicate(PredicateClause(ClausePredicate(TermClause(RelationTerm(name "hoge", Equal, intValue 30))))))|])
+        (["("; "[hoge]"; "="; "30"; ")"], [|UnconditionalConstraint(ClausePredicate(ParenPredicateClause(ClausePredicate(TermClause(RelationTerm(name "hoge", Equal, intValue 30))))))|])
 
         (["1"; "="; "1"; "AND"; "2"; "<>"; "3"], [|
             UnconditionalConstraint(
@@ -144,7 +145,7 @@ let complexCases =
             UnconditionalConstraint(
                 ClausePredicate(
                     NotClause(
-                        PredicateClause(
+                        ParenPredicateClause(
                             LogicalOperatorPredicate(
                                 TermClause(RelationTerm(intValue 1, Equal, intValue 1)),
                                 Or,

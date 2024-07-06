@@ -9,10 +9,19 @@ type Parser<'T> = Parser<'T, UserState>
 let (clause, clauseRef): Parser<Clause> * Parser<Clause> ref = createParserForwardedToRef()
 let (predicate, predicateRef): Parser<Predicate> * Parser<Predicate> ref = createParserForwardedToRef()
 
-let stringValue: Parser<_> =
+let parseStringValue (quoteChar: char): Parser<_> =
     let escapedChar = pstring "\\" >>. anyChar |>> string 
-    let normalChar = manySatisfy (fun c -> c <> '\\' && c <> '"')
-    between (pchar '"') (pchar '"') (stringsSepBy normalChar escapedChar) |>> StringValue .>> spaces
+    let normalChar = manySatisfy (fun c -> c <> '\\' && c <> quoteChar)
+    between (pchar quoteChar) (pchar quoteChar) (stringsSepBy normalChar escapedChar) |>> StringValue .>> spaces
+
+let singleQuoteString: Parser<_> = parseStringValue '\''
+let doubleQuoteString: Parser<_> = parseStringValue '"'
+
+let stringValue: Parser<_> =
+    choice [
+        doubleQuoteString
+        singleQuoteString
+    ]
 
 let intValue: Parser<_> =
     pint32 |>> IntValue .>> spaces
@@ -76,7 +85,7 @@ let term: Parser<_> =
 
 let termClause: Parser<_> = term |>> TermClause .>> spaces
 
-let predicateClause: Parser<_> = between (pchar '(') (pchar ')') (spaces >>. predicate) |>> PredicateClause .>> spaces
+let predicateClause: Parser<_> = between (pchar '(') (pchar ')') (spaces >>. predicate) |>> ParenPredicateClause .>> spaces
 
 let notClause: Parser<_> =
     let not' = skipAnyOf "nN" .>> skipAnyOf "oO" .>> skipAnyOf "tT" .>> spaces
