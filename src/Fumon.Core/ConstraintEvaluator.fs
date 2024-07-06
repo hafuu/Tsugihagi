@@ -1,4 +1,4 @@
-module Fumon.Core.Constraints
+module Fumon.Core.ConstraintEvaluator
 
 open System
 open Fumon.Core.Types

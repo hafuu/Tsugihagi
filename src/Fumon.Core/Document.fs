@@ -8,6 +8,12 @@ let generate (spreadsheet: ISpreadsheet): unit =
         |> Option.map Configuration.read
         |> Option.defaultValue Configuration.defaultConfig
     let sheet = spreadsheet.GetActiveSheet()
-    let parameters, parameterEndRow = ParameterReader.read config sheet
-    let table = Exhaustive.create parameters
-    TableWriter.write config parameters table (parameterEndRow + 2) sheet
+    let parameters, parameterEndRow = ParameterReader.readParameters config sheet
+    let constraints, constraintsEndRow = ParameterReader.readConstraints config (parameterEndRow + 1) sheet
+    let constraintPredicate =
+        if Array.isEmpty constraints then
+            None
+        else
+            Some (ConstraintEvaluator.eval constraints)
+    let table = Exhaustive.create constraintPredicate parameters
+    TableWriter.write config parameters table (constraintsEndRow + 2) sheet

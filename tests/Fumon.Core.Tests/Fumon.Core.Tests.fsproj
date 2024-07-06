@@ -9,7 +9,7 @@
     <Compile Include="Utils.fs" />
     <Compile Include="ExhaustiveTest.fs" />
     <Compile Include="ConstraintParserTest.fs" />
-    <Compile Include="ConstraintsTest.fs" />
+    <Compile Include="ConstraintEvaluatorTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fumon.Core\Fumon.Core.fsproj" />

@@ -1,11 +1,11 @@
-module ConstraintsTest
+module ConstraintEvaluatorTest
 
 open NUnit.Framework
 open FsUnitTyped
 
 open System
 open Fumon.Core.ConstraintParser
-open Fumon.Core.Constraints
+open Fumon.Core.ConstraintEvaluator
 
 open Utils
 
