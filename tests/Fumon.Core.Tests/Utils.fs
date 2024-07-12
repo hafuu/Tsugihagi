@@ -3,7 +3,7 @@ module Utils
 open Fumon.Core.Types
 open Fumon.Core.Types.Spreadsheet
 
-let v (value: string): CellData = {
+let v value = {
     Value = value
     BackgroundColor = None
     FontColor = None
@@ -11,3 +11,5 @@ let v (value: string): CellData = {
     VerticalAlignment = Middle
     WrapStrategy = Overflow
 }
+
+let p name values = { Name = name; Values = values }

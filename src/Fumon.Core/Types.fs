@@ -123,6 +123,10 @@ module rec ConstraintExpression =
 
 type Constraints = ConstraintExpression.Constraints
 
+type IRandom =
+    abstract Next: maxValue: int -> int
+    abstract Next: minValue: int * maxValue: int -> int
+
 [<AutoOpen>]
 module rec Extensions =
     type ICell with

@@ -15,6 +15,7 @@
     <Compile Include="ConstraintParser.fs" />
     <Compile Include="ConstraintEvaluator.fs" />
     <Compile Include="Exhaustive.fs" />
+    <Compile Include="Pairwise.fs" />
     <Compile Include="Configuration.fs" />
     <Compile Include="ParameterReader.fs" />
     <Compile Include="TableWriter.fs" />
