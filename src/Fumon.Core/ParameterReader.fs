@@ -51,3 +51,34 @@ let readConstraints (config: Configuration) (beginRow: int) (sheet: ISheet): Con
             | None -> ()
         read' (headerRow + 1)
         result.ToArray(), endRow
+
+let preprocess (parameters: ParameterDefinition[]): PreprocessedParameter =
+    let legalValues = [|
+        let mutable lv = 0
+        for parameter in parameters do
+            yield [|
+                for _ in parameter.Values do
+                    yield lv
+                    lv <- lv + 1
+            |]
+    |]
+
+    let numberParameters = parameters.Length
+    let numberParameterValues = parameters |> Array.sumBy _.Values.Length
+    let parameterValues = parameters |> Array.collect _.Values
+    let parameterPositions = Array.create numberParameterValues 0
+    do
+        let mutable k = 0
+        for i in 0 .. (legalValues.Length - 1) do
+            let curr = legalValues[i]
+            for j in 0 .. (curr.Length - 1) do
+                parameterPositions[k] <- i
+                k <- k + 1
+    {
+        Parameters = parameters
+        NumberParameters = numberParameters
+        NumberParameterValues = numberParameterValues
+        ParameterValues = parameterValues
+        ParameterPositions = parameterPositions
+        LegalValues = legalValues
+    }
