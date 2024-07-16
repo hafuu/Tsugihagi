@@ -4,10 +4,10 @@ open System
 open Fumon.Core.Types
 open Fumon.Core.Types.ConstraintExpression
 
-let getValue (combination: Combination) (factor: Factor) =
+let getValue (context: PreprocessedParameter) (combination: Combination) (factor: Factor) =
     match factor with
     | ValueFactor value -> value
-    | NameFactor name -> StringValue (combination[name].Value)
+    | ParameterValueFactor parameterPosition -> StringValue (context.ParameterValues[combination[parameterPosition]].Value)
 
 let tryConvertToInt (value: Value): int option =
     match value with
@@ -35,9 +35,9 @@ let evalStringRelation (left: Value) (relation: Relation) (right: Value): bool =
     let right = getString right
     evalRelationGeneric left relation right
 
-let evalRelation (combination: Combination) (left: Factor) (relation: Relation) (right: Factor): bool =
-    let left = getValue combination left
-    let right = getValue combination right
+let evalRelation (context: PreprocessedParameter) (combination: Combination) (left: Factor) (relation: Relation) (right: Factor): bool =
+    let left = getValue context combination left
+    let right = getValue context combination right
     match left, right with
     | (IntValue _, _) | (_, IntValue _) ->
         match tryConvertToInt left, tryConvertToInt right with
@@ -45,35 +45,35 @@ let evalRelation (combination: Combination) (left: Factor) (relation: Relation) 
         | _, _ -> evalStringRelation left relation right
     | _ -> evalStringRelation left relation right
 
-let evalTerm (combination: Combination) (term: Term): bool =
+let evalTerm (context: PreprocessedParameter) (combination: Combination) (term: Term): bool =
     match term with
-    | RelationTerm (left, relation, right) -> evalRelation combination left relation right
+    | RelationTerm (left, relation, right) -> evalRelation context combination left relation right
     | LikeTerm (name, pattern) -> failwith "not implemented"
-    | InTerm (factor, values) -> values |> Array.exists (fun right -> evalRelation combination factor Equal right)
+    | InTerm (factor, values) -> values |> Array.exists (fun right -> evalRelation context combination factor Equal right)
 
-let rec evalClause (combination: Combination) (clause: Clause): bool =
+let rec evalClause (context: PreprocessedParameter) (combination: Combination) (clause: Clause): bool =
     match clause with
-    | TermClause term -> evalTerm combination term
-    | ParenPredicateClause predicate -> evalPredicate combination predicate
-    | NotClause clause -> not (evalClause combination clause)
+    | TermClause term -> evalTerm context combination term
+    | ParenPredicateClause predicate -> evalPredicate context combination predicate
+    | NotClause clause -> not (evalClause context combination clause)
 
-and evalPredicate (combination: Combination) (predicate: Predicate): bool =
+and evalPredicate (context: PreprocessedParameter) (combination: Combination) (predicate: Predicate): bool =
     match predicate with
-    | ClausePredicate clause -> evalClause combination clause
+    | ClausePredicate clause -> evalClause context combination clause
     | LogicalOperatorPredicate (left, operator, right) ->
         match operator with
-        | And -> evalClause combination left && evalPredicate combination right
-        | Or -> evalClause combination left || evalPredicate combination right
+        | And -> evalClause context combination left && evalPredicate context combination right
+        | Or -> evalClause context combination left || evalPredicate context combination right
 
-let evalConstraint(combination: Combination) (constraint_: Constraint): bool =
+let evalConstraint (context: PreprocessedParameter) (combination: Combination) (constraint_: Constraint): bool =
     match constraint_ with
     | ConditionalConstraint (ifPredicate, thenPredicate, elsePredicate) ->
-        if evalPredicate combination ifPredicate then
-            evalPredicate combination thenPredicate
+        if evalPredicate context combination ifPredicate then
+            evalPredicate context combination thenPredicate
         else
             match elsePredicate with
-            | Some elsePredicate -> evalPredicate combination elsePredicate
+            | Some elsePredicate -> evalPredicate context combination elsePredicate
             | None -> true
-    | UnconditionalConstraint predicate -> evalPredicate combination predicate
+    | UnconditionalConstraint predicate -> evalPredicate context combination predicate
 
-let eval (constraints: Constraints) (combination: Combination): bool = constraints |> Array.forall (evalConstraint combination)
+let eval (context: PreprocessedParameter) (constraints: Constraints) (combination: Combination): bool = constraints |> Array.forall (evalConstraint context combination)

@@ -2,15 +2,20 @@ module Fumon.Core.Exhaustive
 
 open Fumon.Core.Types
 
-let create (predicate: (Combination -> bool) option) (parameters: ParameterDefinition[]): Combination seq =
+let create (predicate: (Combination -> bool) option) (context: PreprocessedParameter): Combination seq =
     let result =
-        parameters
-        |> Seq.fold (fun rows p ->
+        context.LegalValues
+        |> Seq.fold (fun rows values ->
             rows
             |> Seq.collect (fun row ->
-                p.Values |> Seq.map (fun value -> Map.add p.Name.Value value row)
+                values |> Seq.map (fun value -> value :: row)
             )
-        ) (Seq.singleton (Map.empty))
+        ) (Seq.singleton [])
+        |> Seq.map (fun revRow -> // 逆順に入っているので順番を入れ替える
+            let row = Array.create context.NumberParameters 0
+            revRow |> List.iteri (fun i value -> row[row.Length - 1 - i] <- value)
+            row
+        )
     match predicate with
     | Some pred -> result |> Seq.filter pred
     | None -> result

@@ -4,6 +4,7 @@ open NUnit.Framework
 open FsUnitTyped
 
 open System
+open Fumon.Core
 open Fumon.Core.ConstraintParser
 open Fumon.Core.ConstraintEvaluator
 
@@ -88,10 +89,17 @@ let testCases =
 
 [<TestCaseSource(nameof(testCases))>]
 let ``制約を評価できる``(str: string, expected: bool) =
+    let parameters = [|
+        p (v "number") [| v "100" |]
+        p (v "str") [| v "bbb" |]
+    |]
+    let context = ParameterReader.preprocess parameters
+    let parse = build context
     let constraints = parse str
-    let combination = Map.ofList [
-        ("number", v "100")
-        ("str", v "bbb")
-    ]
+    let c parameter value = findValuePosition context parameter value
+    let combination = [|
+        c "number" "100"
+        c "str" "bbb"
+    |]
 
-    eval constraints combination |> shouldEqual expected
+    eval context constraints combination |> shouldEqual expected

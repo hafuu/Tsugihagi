@@ -9,11 +9,12 @@ let generate (spreadsheet: ISpreadsheet): unit =
         |> Option.defaultValue Configuration.defaultConfig
     let sheet = spreadsheet.GetActiveSheet()
     let parameters, parameterEndRow = ParameterReader.readParameters config sheet
-    let constraints, constraintsEndRow = ParameterReader.readConstraints config (parameterEndRow + 1) sheet
+    let context = ParameterReader.preprocess parameters
+    let constraints, constraintsEndRow = ParameterReader.readConstraints config context (parameterEndRow + 1) sheet
     let constraintPredicate =
         if Array.isEmpty constraints then
             None
         else
-            Some (ConstraintEvaluator.eval constraints)
-    let table = Exhaustive.create constraintPredicate parameters
-    TableWriter.write config parameters table (constraintsEndRow + 2) sheet
+            Some (ConstraintEvaluator.eval context constraints)
+    let table = Exhaustive.create constraintPredicate context
+    TableWriter.write config context table (constraintsEndRow + 2) sheet

@@ -33,9 +33,10 @@ let readParameters (config: Configuration) (sheet: ISheet): ParameterDefinition[
     let endRow = beginRow + (parameters |> Seq.map _.Values.Length |> Seq.max)
     parameters, endRow
 
-let readConstraints (config: Configuration) (beginRow: int) (sheet: ISheet): Constraints * int =
+let readConstraints (config: Configuration) (context: PreprocessedParameter) (beginRow: int) (sheet: ISheet): Constraints * int =
     let column = config.BeginParameterColumn
     let headerRow = findIndex "制約" config.ParameterThreshold beginRow column sheet
+    let parser = ConstraintParser.build context
     match headerRow with
     | None -> [||], beginRow
     | Some headerRow ->
@@ -44,7 +45,7 @@ let readConstraints (config: Configuration) (beginRow: int) (sheet: ISheet): Con
         let rec read' row =
             match sheet.GetCell(row, column).GetValue() with
             | Some constraintStr ->
-                let constraints = ConstraintParser.parse constraintStr
+                let constraints = parser constraintStr
                 result.AddRange(constraints)
                 endRow <- row
                 read' (row + 1)

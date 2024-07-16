@@ -39,14 +39,6 @@ type PairwiseParameter = {
     ParameterPositions: int[]
     UnusedCounts: int[]
 }
-
-let buildCombination ({Parameters = parameters; ParameterPositions = parameterPositions; ParameterValues = parameterValues }) (testSet: int[]): Combination =
-    testSet
-    |> Array.fold (fun state i ->
-        let key = parameters[parameterPositions[i]].Name.Value
-        let value = parameterValues[i]
-        state |> Map.add key value
-    ) Map.empty
     
 let numberPairsCaptured (ts: int[]) (unusedPairsSearch: int[,]): int =
     let mutable ans = 0
@@ -246,9 +238,9 @@ let generate' (random: IRandom) ({
 
                 unusedPairs.RemoveAll(fun curr -> curr[0] = v1 && curr[1] = v2) |> ignore
 
-    testSets |> Seq.sortBy id
+    testSets.ToArray() |> Array.sort
 
 let generate (random: IRandom) (parameters: ParameterDefinition[]): Combination seq =
     let data = init parameters
     let testSets = generate' random data
-    testSets |> Seq.map (buildCombination data)
+    testSets

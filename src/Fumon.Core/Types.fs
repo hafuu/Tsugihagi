@@ -109,7 +109,7 @@ type PreprocessedParameter = {
     LegalValues: int[][]
 }
 
-type Combination = Map<string, CellData>
+type Combination = int[]
 
 module rec ConstraintExpression =
     type Constraints = Constraint[]
@@ -133,7 +133,7 @@ module rec ConstraintExpression =
         | InTerm of Factor * Factor[]
 
     type Factor =
-        | NameFactor of string
+        | ParameterValueFactor of parameterPosition: int
         | ValueFactor of Value
 
     type LogicalOperator =

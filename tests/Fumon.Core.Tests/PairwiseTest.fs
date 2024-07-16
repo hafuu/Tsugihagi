@@ -49,7 +49,7 @@ let printInit parameters =
 
 [<Test>]
 let ``初期化できる``() =
-    let parameters: ParameterDefinition[] = [|
+    let parameters = [|
         p (v "p1") [| v "a"; v "b" |]
         p (v "p2") [| v "c"; v "d"; v "e"; v "f" |]
         p (v "p3") [| v "g"; v "h"; v "i" |]
@@ -136,7 +136,7 @@ let ``初期化できる``() =
 
 [<Test>]
 let ``生成できる``() =
-    let parameters: ParameterDefinition[] = [|
+    let parameters = [|
         p (v "p1") [| v "a"; v "b" |]
         p (v "p2") [| v "c"; v "d"; v "e"; v "f" |]
         p (v "p3") [| v "g"; v "h"; v "i" |]
@@ -159,10 +159,6 @@ let ``生成できる``() =
         )
 
     result
-    |> Seq.map (Pairwise.buildCombination data)
-    |> Seq.map (fun row ->
-        row.Values |> Seq.map _.Value |> Seq.toArray
-    )
     |> Seq.toArray
     |> printfn "%A"
 

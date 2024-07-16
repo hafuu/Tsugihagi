@@ -4,11 +4,24 @@ open NUnit.Framework
 open FsUnitTyped
 
 open System
+open Fumon.Core
 open Fumon.Core.ConstraintParser
+open Fumon.Core.Types
 open Fumon.Core.Types.ConstraintExpression
+open Utils
 
+
+let parameters = [|
+    p (v "hoge") [| v "a"; v "b" |]
+    p (v "piyo") [| v "c"; v "d" |]
+|]
+let context = ParameterReader.preprocess parameters
 let intValue n = ValueFactor(IntValue(n))
-let name n = NameFactor(n)
+let name n =
+    let position = context.Parameters |> Array.findIndex (fun p -> p.Name.Value = n)
+    ParameterValueFactor(position)
+
+let parse = build context
 
 let parseCases =
     [
@@ -24,9 +37,9 @@ let parseCases =
         (["[hoge]"; "<"; "30"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", LessThan, intValue 30))))|])
         (["[hoge]"; "<="; "30"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", LessThanOrEqual, intValue 30))))|])
 
-        (["[hoge]"; "="; "[piyo]"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", Equal, NameFactor("piyo")))))|])
+        (["[hoge]"; "="; "[piyo]"], [|UnconditionalConstraint(ClausePredicate(TermClause(RelationTerm(name "hoge", Equal, name "piyo"))))|])
         (["[hoge]"; "in"; "{"; "1"; ","; "2"; "}"], [|UnconditionalConstraint(ClausePredicate(TermClause(InTerm(name "hoge", [| intValue 1; intValue 2 |]))))|])
-        (["[hoge]"; "IN"; "{"; "[piyo]" ;"}"], [|UnconditionalConstraint(ClausePredicate(TermClause(InTerm(name "hoge", [|NameFactor("piyo")|]))))|])
+        (["[hoge]"; "IN"; "{"; "[piyo]" ;"}"], [|UnconditionalConstraint(ClausePredicate(TermClause(InTerm(name "hoge", [|name "piyo"|]))))|])
 
 
         (["not"; "[hoge]"; "="; "30"], [|UnconditionalConstraint(ClausePredicate(NotClause(TermClause(RelationTerm(name "hoge", Equal, intValue 30)))))|])
