@@ -224,7 +224,7 @@ let generate' (random: IRandom) ({
 
     testSets.ToArray() |> Array.sort
 
-let generate (random: IRandom) (predicate: (Combination -> bool) option) (input: CombinationInput): Combination seq =
+let generate (random: IRandom) (predicate: (Combination -> Ternary) option) (input: CombinationInput): Combination seq =
     let data = init input
     let testSets = generate' random data
     testSets

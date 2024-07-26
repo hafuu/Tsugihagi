@@ -2,7 +2,7 @@ module Fumon.Core.Exhaustive
 
 open Fumon.Core.Types
 
-let generate (predicate: (Combination -> bool) option) (input: CombinationInput): Combination seq =
+let generate (predicate: (Combination -> Ternary) option) (input: CombinationInput): Combination seq =
     let result =
         input.LegalValues
         |> Seq.fold (fun rows values ->
@@ -17,5 +17,5 @@ let generate (predicate: (Combination -> bool) option) (input: CombinationInput)
             row
         )
     match predicate with
-    | Some pred -> result |> Seq.filter pred
+    | Some pred -> result |> Seq.filter (pred >> Ternary.toBool)
     | None -> result

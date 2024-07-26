@@ -157,7 +157,7 @@ type Constraints = ConstraintExpression.Constraints
 type IRandom =
     abstract Next: minValue: int * maxValue: int -> int
 
-type GenerateCombinations = (Combination -> bool) option -> CombinationInput -> Combination seq
+type GenerateCombinations = (Combination -> Ternary) option -> CombinationInput -> Combination seq
 
 [<AutoOpen>]
 module rec Extensions =

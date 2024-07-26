@@ -7,11 +7,12 @@
   <ItemGroup>
     <None Include="paket.references" />
     <Compile Include="Utils.fs" />
+    <Compile Include="TernaryTest.fs" />
     <Compile Include="ExhaustiveTest.fs" />
     <Compile Include="PairwiseTest.fs" />
     <Compile Include="ConstraintParserTest.fs" />
-    <Compile Include="ParameterReaderTest.fs" />
     <Compile Include="ConstraintEvaluatorTest.fs" />
+    <Compile Include="ParameterReaderTest.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fumon.Core\Fumon.Core.fsproj" />

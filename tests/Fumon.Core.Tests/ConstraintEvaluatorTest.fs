@@ -11,86 +11,92 @@ open Utils
 
 let testCases =
     [
-        ("1=1", true)
-        ("1=2", false)
+        ("1=1", True)
+        ("1=2", False)
 
-        ("1<>2", true)
-        ("1<>1", false)
+        ("1<>2", True)
+        ("1<>1", False)
         
-        ("1>0", true)
-        ("1>2", false)
+        ("1>0", True)
+        ("1>2", False)
         
-        ("1>=0", true)
-        ("1>=1", true)
-        ("1>=2", false)
+        ("1>=0", True)
+        ("1>=1", True)
+        ("1>=2", False)
 
-        ("1<2", true)
-        ("1<1", false)
+        ("1<2", True)
+        ("1<1", False)
 
-        ("1<=2", true)
-        ("1<=1", true)
-        ("1<=0", false)
+        ("1<=2", True)
+        ("1<=1", True)
+        ("1<=0", False)
 
-        ("'a'='a'", true)
-        ("'a'='b'", false)
+        ("'a'='a'", True)
+        ("'a'='b'", False)
 
-        ("'a'<>'b'", true)
-        ("'a'<>'a'", false)
+        ("'a'<>'b'", True)
+        ("'a'<>'a'", False)
 
-        ("'b'>'a'", true)
-        ("'b'>'b'", false)
+        ("'b'>'a'", True)
+        ("'b'>'b'", False)
 
-        ("'b'>='a'", true)
-        ("'b'>='b'", true)
-        ("'b'>='c'", false)
+        ("'b'>='a'", True)
+        ("'b'>='b'", True)
+        ("'b'>='c'", False)
 
-        ("'b'<'c'", true)
-        ("'b'<'b'", false)
+        ("'b'<'c'", True)
+        ("'b'<'b'", False)
 
-        ("'b'<='c'", true)
-        ("'b'<='b'", true)
-        ("'b'<='a'", false)
+        ("'b'<='c'", True)
+        ("'b'<='b'", True)
+        ("'b'<='a'", False)
 
-        ("[number] = 100", true)
-        ("[number] = 200", false)
-        ("[str] = 100", false)
-        ("[str] <> 100", true)
+        ("[number] = 100", True)
+        ("[number] = 200", False)
+        ("[str] = 100", False)
+        ("[str] <> 100", True)
 
-        ("'100円' > 100", true)
-        ("'100円' > 101", false)
+        ("'100円' > 100", True)
+        ("'100円' > 101", False)
 
-        ("1 in {0, 1, 2}", true)
-        ("3 in {0, 1, 2}", false)
+        ("1 in {0, 1, 2}", True)
+        ("3 in {0, 1, 2}", False)
 
-        ("not 1 = 1", false)
-        ("not 1 <> 1", true)
+        ("not 1 = 1", False)
+        ("not 1 <> 1", True)
 
-        ("(1 = 1)", true)
-        ("(1 <> 1)", false)
+        ("(1 = 1)", True)
+        ("(1 <> 1)", False)
 
-        ("1 = 1 and 2 = 2", true)
-        ("1 = 1 and 2 <> 2", false)
+        ("1 = 1 and 2 = 2", True)
+        ("1 = 1 and 2 <> 2", False)
 
-        ("1 = 1 or 2 = 2", true)
-        ("1 <> 1 or 2 = 2", true)
-        ("1 <> 1 or 2 <> 2", false)
+        ("1 = 1 or 2 = 2", True)
+        ("1 <> 1 or 2 = 2", True)
+        ("1 <> 1 or 2 <> 2", False)
 
-        ("if 1 = 1 then 2 = 2", true)
-        ("if 1 = 1 then 2 <> 2", false)
-        ("if 1 <> 1 then 2 <> 2", true)
+        ("if 1 = 1 then 2 = 2", True)
+        ("if 1 = 1 then 2 <> 2", False)
+        ("if 1 <> 1 then 2 <> 2", True)
 
-        ("if 1 = 1 then 2 = 2 else 3 <> 3", true)
-        ("if 1 = 1 then 2 <> 2 else 3 = 3", false)
-        ("if 1 <> 1 then 2 <> 2 else 3 = 3", true)
-        ("if 1 <> 1 then 2 = 2 else 3 <> 3", false)
+        ("if 1 = 1 then 2 = 2 else 3 <> 3", True)
+        ("if 1 = 1 then 2 <> 2 else 3 = 3", False)
+        ("if 1 <> 1 then 2 <> 2 else 3 = 3", True)
+        ("if 1 <> 1 then 2 = 2 else 3 <> 3", False)
+
+        ("[unknown] = 100", Unknown)
+        ("not [unknown] = 100", Unknown)
+        ("if 1 = 1 then [unknown] = 100", Unknown)
+        ("if [unknown] = 100 then 1 = 1", True)
     ]
     |> List.map (fun (str, expected) -> TestCaseData(str, expected))
 
 [<TestCaseSource(nameof(testCases))>]
-let ``制約を評価できる``(str: string, expected: bool) =
+let ``制約を評価できる``(str, expected) =
     let parameters = [|
         p (v "number") [| v "100" |]
         p (v "str") [| v "bbb" |]
+        p (v "unknown") [| v "unknown" |]
     |]
     let input = ParameterReader.preprocess parameters
     let parse = build input
@@ -99,6 +105,7 @@ let ``制約を評価できる``(str: string, expected: bool) =
     let combination = [|
         c "number" "100"
         c "str" "bbb"
+        -1
     |]
 
     eval input constraints combination |> shouldEqual expected
