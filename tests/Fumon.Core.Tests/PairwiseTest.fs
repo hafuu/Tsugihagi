@@ -14,7 +14,7 @@ let random =
             random.Next(minValue, maxValue)
     }
 
-let toArrayArray (xss: int[,]) = Array.init (xss.GetLength(0)) (fun i -> xss[i, *])
+let toArrayArray (xss: int[][]) = Array.init (xss.GetLength(0)) (fun i -> xss[i][*])
 
 let printInit input =
     let printArrayArray (xss: int[][]) =
@@ -105,10 +105,10 @@ let ``初期化できる``() =
         [| 8; 9  |]
         [| 8; 10 |]
     |]
-    context.AllPairsDisplay |> shouldEqual (array2D allPairs)
+    context.AllPairsDisplay |> shouldEqual allPairs
     context.UnusedPairs |> shouldEqual (ResizeArray(allPairs))
 
-    context.UnusedPairsSearch |> shouldEqual (array2D [|
+    context.UnusedPairsSearch |> shouldEqual [|
         [| 0; 0; 1; 1; 1; 1; 1; 1; 1; 1; 1 |]
         [| 0; 0; 1; 1; 1; 1; 1; 1; 1; 1; 1 |]
         [| 0; 0; 0; 0; 0; 0; 1; 1; 1; 1; 1 |]
@@ -120,7 +120,7 @@ let ``初期化できる``() =
         [| 0; 0; 0; 0; 0; 0; 0; 0; 0; 1; 1 |]
         [| 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0 |]
         [| 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0 |]
-    |])
+    |]
 
     context.ParameterPositions |> shouldEqual [| 0; 0; 1; 1; 1; 1; 2; 2; 2; 3; 3 |]
     context.UnusedCounts |> shouldEqual [|9; 9; 7; 7; 7; 7; 8; 8; 8; 9; 9  |]

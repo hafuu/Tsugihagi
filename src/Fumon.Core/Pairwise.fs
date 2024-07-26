@@ -30,18 +30,18 @@ type IRandom with
 type PairwiseContext = {
     Input: CombinationInput
     NumberPairs: int
-    AllPairsDisplay: int[,]
+    AllPairsDisplay: int[][]
     UnusedPairs: ResizeArray<int[]>
-    UnusedPairsSearch: int[,]
+    UnusedPairsSearch: int[][]
     ParameterPositions: int[]
     UnusedCounts: int[]
 }
     
-let numberPairsCaptured (ts: int[]) (unusedPairsSearch: int[,]): int =
+let numberPairsCaptured (ts: int[]) (unusedPairsSearch: int[][]): int =
     let mutable ans = 0
     for i in 0 .. (ts.Length - 2) do
         for j in (i + 1) .. (ts.Length - 1) do
-            if unusedPairsSearch[ts[i], ts[j]] = 1 then
+            if unusedPairsSearch[ts[i]][ts[j]] = 1 then
                 ans <- ans + 1
     ans
 
@@ -53,9 +53,9 @@ let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalVa
                 num <- num + (legalValues[i].Length * legalValues[j].Length)
         num
 
-    let allPairsDisplay = Array2D.create numberPairs 2 0
+    let allPairsDisplay = Array.init numberPairs (fun _ -> Array.create 2 0)
     let unusedPairs = ResizeArray<int[]>()
-    let unusedPairsSearch = Array2D.create numberParameterValues numberParameterValues 0
+    let unusedPairsSearch = Array.init numberParameterValues (fun _ -> Array.create numberParameterValues 0)
     do
         let mutable currPair = 0
         for i in 0 .. (legalValues.Length - 2) do
@@ -64,13 +64,13 @@ let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalVa
                 let secondRow = legalValues[j]
                 for x in 0 .. (firstRow.Length - 1) do
                     for y in 0 .. (secondRow.Length - 1) do
-                        allPairsDisplay[currPair, 0] <- firstRow[x]
-                        allPairsDisplay[currPair, 1] <- secondRow[y]
+                        allPairsDisplay[currPair][0] <- firstRow[x]
+                        allPairsDisplay[currPair][1] <- secondRow[y]
 
                         let aPair = [| firstRow[x]; secondRow[y] |]
 
                         unusedPairs.Add(aPair)
-                        unusedPairsSearch[firstRow[x], secondRow[y]] <- 1
+                        unusedPairsSearch[firstRow[x]][secondRow[y]] <- 1
 
                         currPair <- currPair + 1
 
@@ -86,9 +86,9 @@ let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalVa
 
     let unusedCounts = Array.create numberParameterValues 0
     do
-        for i in 0 .. (allPairsDisplay.GetLength(0) - 1) do
-            unusedCounts[allPairsDisplay[i, 0]] <- unusedCounts[allPairsDisplay[i, 0]] + 1
-            unusedCounts[allPairsDisplay[i, 1]] <- unusedCounts[allPairsDisplay[i, 1]] + 1
+        for i in 0 .. (numberPairs - 1) do
+            unusedCounts[allPairsDisplay[i][0]] <- unusedCounts[allPairsDisplay[i][0]] + 1
+            unusedCounts[allPairsDisplay[i][1]] <- unusedCounts[allPairsDisplay[i][1]] + 1
 
     {
         Input = input
@@ -154,7 +154,7 @@ let candidates (random: IRandom) ({
                 for value in random.CopyAndShuffle(possibleValues) do
                     let currentCount = testSet |> List.sumBy (fun otherValue ->
                         let candidatePair = [| value; otherValue |]
-                        if (unusedPairsSearch[candidatePair[0], candidatePair[1]] = 1 || unusedPairsSearch[candidatePair[1], candidatePair[0]] = 1) then
+                        if (unusedPairsSearch[candidatePair[0]][candidatePair[1]] = 1 || unusedPairsSearch[candidatePair[1]][candidatePair[0]] = 1) then
                             1
                         else
                             0
@@ -175,6 +175,8 @@ let candidates (random: IRandom) ({
 
     best, result
     
+
+let copyArray (source: _[]) (dest: _[]) = source |> Array.iteri (fun i x -> dest[i] <- x)
 
 let generate' (random: IRandom) ({
     Input = {
@@ -205,7 +207,7 @@ let generate' (random: IRandom) ({
                 indexOfBestCandidate <- i
         )
 
-        candidateSets[indexOfBestCandidate].CopyTo(bestTestSet, 0)
+        copyArray candidateSets[indexOfBestCandidate] bestTestSet
         testSets.Add(bestTestSet)
 
         for i in 0 .. (numberParameters - 2) do
@@ -216,7 +218,7 @@ let generate' (random: IRandom) ({
                 unusedCounts[v1] <- unusedCounts[v1] - 1
                 unusedCounts[v2] <- unusedCounts[v2] - 1
 
-                unusedPairsSearch[v1, v2] <- 0
+                unusedPairsSearch[v1][v2] <- 0
 
                 unusedPairs.RemoveAll(fun curr -> curr[0] = v1 && curr[1] = v2) |> ignore
 
