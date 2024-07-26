@@ -2,9 +2,9 @@ module Fumon.Core.Exhaustive
 
 open Fumon.Core.Types
 
-let create (predicate: (Combination -> bool) option) (context: PreprocessedParameter): Combination seq =
+let generate (predicate: (Combination -> bool) option) (input: CombinationInput): Combination seq =
     let result =
-        context.LegalValues
+        input.LegalValues
         |> Seq.fold (fun rows values ->
             rows
             |> Seq.collect (fun row ->
@@ -12,7 +12,7 @@ let create (predicate: (Combination -> bool) option) (context: PreprocessedParam
             )
         ) (Seq.singleton [])
         |> Seq.map (fun revRow -> // 逆順に入っているので順番を入れ替える
-            let row = Array.create context.NumberParameters 0
+            let row = Array.create input.NumberParameters 0
             revRow |> List.iteri (fun i value -> row[row.Length - 1 - i] <- value)
             row
         )

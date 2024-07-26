@@ -10,42 +10,40 @@ open Utils
 let random =
     let random = System.Random()
     { new IRandom with
-        member this.Next(maxValue: int): int =
-            random.Next(maxValue)
         member this.Next(minValue: int, maxValue: int): int =
             random.Next(minValue, maxValue)
     }
 
 let toArrayArray (xss: int[,]) = Array.init (xss.GetLength(0)) (fun i -> xss[i, *])
 
-let printInit parameters =
+let printInit input =
     let printArrayArray (xss: int[][]) =
         for xs in xss do
             printfn "  %s" (xs |> Seq.map string |> String.concat "; ")
 
-    let data = Pairwise.init parameters
+    let context = Pairwise.init input
 
-    printfn "numberParameters: %d" data.NumberParameters
-    printfn "numberParameterValues: %d" data.NumberParameterValues
-    printfn "numberPairs: %d" data.NumberPairs
+    printfn "numberParameters: %d" context.Input.NumberParameters
+    printfn "numberParameterValues: %d" context.Input.NumberParameterValues
+    printfn "numberPairs: %d" context.NumberPairs
 
-    printfn "parameterValues: %s" (data.ParameterValues |> Seq.map _.Value |> String.concat "; ")
+    printfn "parameterValues: %s" (context.Input.ParameterValues |> Seq.map _.Value |> String.concat "; ")
 
     printfn "legalValues:"
-    data.LegalValues |> printArrayArray
+    context.Input.LegalValues |> printArrayArray
 
     printfn "allPairsDisplay:"
-    data.AllPairsDisplay |> toArrayArray |> printArrayArray
+    context.AllPairsDisplay |> toArrayArray |> printArrayArray
            
     printfn "unusedPairs:"
-    data.UnusedPairs |> Seq.toArray |> printArrayArray
+    context.UnusedPairs |> Seq.toArray |> printArrayArray
 
     printfn "unusedPairsSearch:"
-    data.UnusedPairsSearch |> toArrayArray |> printArrayArray
+    context.UnusedPairsSearch |> toArrayArray |> printArrayArray
 
-    printfn "parameterPositions: %s" (data.ParameterPositions |> Seq.map string |> String.concat "; ")
+    printfn "parameterPositions: %s" (context.ParameterPositions |> Seq.map string |> String.concat "; ")
 
-    printfn "unusedCounts: %s" (data.UnusedCounts |> Seq.map string |> String.concat "; ")
+    printfn "unusedCounts: %s" (context.UnusedCounts |> Seq.map string |> String.concat "; ")
 
 [<Test>]
 let ``初期化できる``() =
@@ -55,19 +53,12 @@ let ``初期化できる``() =
         p (v "p3") [| v "g"; v "h"; v "i" |]
         p (v "p4") [| v "j"; v "k" |]
     |]
+    let input = ParameterReader.preprocess parameters
 
-    let data = Pairwise.init parameters
+    let context = Pairwise.init input
 
-    data.NumberParameters |> shouldEqual 4
-    data.NumberParameterValues |> shouldEqual 11
-    data.NumberPairs |> shouldEqual 44
-    data.ParameterValues |> shouldEqual ([| "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"; "k" |] |> Array.map v)
-    data.LegalValues |> shouldEqual [|
-        [| 0; 1 |]
-        [| 2; 3; 4; 5 |]
-        [| 6; 7; 8 |]
-        [| 9; 10 |]
-    |]
+    context.NumberPairs |> shouldEqual 44
+    
     let allPairs = [|
         [| 0; 2  |]
         [| 0; 3  |]
@@ -114,10 +105,10 @@ let ``初期化できる``() =
         [| 8; 9  |]
         [| 8; 10 |]
     |]
-    data.AllPairsDisplay |> shouldEqual (array2D allPairs)
-    data.UnusedPairs |> shouldEqual (ResizeArray(allPairs))
+    context.AllPairsDisplay |> shouldEqual (array2D allPairs)
+    context.UnusedPairs |> shouldEqual (ResizeArray(allPairs))
 
-    data.UnusedPairsSearch |> shouldEqual (array2D [|
+    context.UnusedPairsSearch |> shouldEqual (array2D [|
         [| 0; 0; 1; 1; 1; 1; 1; 1; 1; 1; 1 |]
         [| 0; 0; 1; 1; 1; 1; 1; 1; 1; 1; 1 |]
         [| 0; 0; 0; 0; 0; 0; 1; 1; 1; 1; 1 |]
@@ -131,8 +122,8 @@ let ``初期化できる``() =
         [| 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0 |]
     |])
 
-    data.ParameterPositions |> shouldEqual [| 0; 0; 1; 1; 1; 1; 2; 2; 2; 3; 3 |]
-    data.UnusedCounts |> shouldEqual [|9; 9; 7; 7; 7; 7; 8; 8; 8; 9; 9  |]
+    context.ParameterPositions |> shouldEqual [| 0; 0; 1; 1; 1; 1; 2; 2; 2; 3; 3 |]
+    context.UnusedCounts |> shouldEqual [|9; 9; 7; 7; 7; 7; 8; 8; 8; 9; 9  |]
 
 [<Test>]
 let ``生成できる``() =
@@ -144,12 +135,13 @@ let ``生成できる``() =
         //p (v "p5") [| v "l"; v "m"; v "n"|]
         //p (v "p6") [| v "o"; v "p"; v "q"; v "r"; v "s" |]
     |]
+    let input = ParameterReader.preprocess parameters
 
-    let data = Pairwise.init parameters
-    let result = Pairwise.generate' random data |> Seq.toArray
+    let context = Pairwise.init input
+    let result = Pairwise.generate' random context |> Seq.toArray
 
     let ok =
-        data.AllPairsDisplay
+        context.AllPairsDisplay
         |> toArrayArray
         |> Array.forall (fun pair ->
             result
@@ -162,5 +154,5 @@ let ``生成できる``() =
     |> Seq.toArray
     |> printfn "%A"
 
-    Seq.length result |> shouldBeSmallerThan data.NumberPairs
+    Seq.length result |> shouldBeSmallerThan context.NumberPairs
     ok |> shouldEqual true

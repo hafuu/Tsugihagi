@@ -12,12 +12,12 @@ let v value = {
     WrapStrategy = Overflow
 }
 
-let findValuePosition context parameter value =
-    context.ParameterValues
+let findValuePosition input parameter value =
+    input.ParameterValues
     |> Array.indexed
     |> Array.find (fun (index, parameterValue) ->
-        let parameterPosition = context.ParameterPositions[index]
-        context.Parameters[parameterPosition].Name.Value = parameter && parameterValue.Value = value
+        let parameterPosition = input.ParameterPositions[index]
+        input.Parameters[parameterPosition].Name.Value = parameter && parameterValue.Value = value
     )
     |> fst
 

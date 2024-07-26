@@ -3,6 +3,7 @@ module Fumon.Core.Pairwise
 open Fumon.Core.Types
 
 type IRandom with
+    member this.Next(maxValue: int): int = this.Next(0, maxValue)
     member this.Pick(xs: ResizeArray<_>) = xs[this.Next(xs.Count)]
     member this.CopyAndShuffle(source: _[]): _[] =
         let xs = Array.copy source
@@ -26,13 +27,9 @@ type IRandom with
             xs[j] <- xs[i]
             xs[i] <- temp
 
-type PairwiseParameter = {
-    Parameters: ParameterDefinition[]
-    NumberParameters: int
-    NumberParameterValues: int
+type PairwiseContext = {
+    Input: CombinationInput
     NumberPairs: int
-    ParameterValues: CellData[]
-    LegalValues: int[][]
     AllPairsDisplay: int[,]
     UnusedPairs: ResizeArray<int[]>
     UnusedPairsSearch: int[,]
@@ -48,28 +45,13 @@ let numberPairsCaptured (ts: int[]) (unusedPairsSearch: int[,]): int =
                 ans <- ans + 1
     ans
 
-let init (parameters: ParameterDefinition[]) =
-    let legalValues = [|
-        let mutable lv = 0
-        for parameter in parameters do
-            yield [|
-                for _ in parameter.Values do
-                    yield lv
-                    lv <- lv + 1
-            |]
-    |]
-
-    let numberParameters = parameters.Length
-    let numberParameterValues = parameters |> Array.sumBy _.Values.Length
+let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalValues } as input) =
     let numberPairs =
         let mutable num = 0
         for i in 0 .. (legalValues.Length - 2) do
             for j in (i + 1) .. (legalValues.Length - 1) do
                 num <- num + (legalValues[i].Length * legalValues[j].Length)
         num
-
-
-    let parameterValues = parameters |> Array.collect _.Values
 
     let allPairsDisplay = Array2D.create numberPairs 2 0
     let unusedPairs = ResizeArray<int[]>()
@@ -109,12 +91,8 @@ let init (parameters: ParameterDefinition[]) =
             unusedCounts[allPairsDisplay[i, 1]] <- unusedCounts[allPairsDisplay[i, 1]] + 1
 
     {
-        Parameters = parameters
-        NumberParameters = numberParameters
-        NumberParameterValues = numberParameterValues
+        Input = input
         NumberPairs = numberPairs
-        ParameterValues = parameterValues
-        LegalValues = legalValues
         AllPairsDisplay = allPairsDisplay
         UnusedPairs = unusedPairs
         UnusedPairsSearch = unusedPairsSearch
@@ -140,12 +118,14 @@ let bestPairs { UnusedPairs = unusedPairs; UnusedCounts = unusedCounts } =
     result
 
 let candidates (random: IRandom) ({
-    NumberParameters = numberParameters
-    LegalValues = legalValues
+    Input = {
+        NumberParameters = numberParameters
+        LegalValues = legalValues
+    }
     UnusedPairsSearch = unusedPairsSearch
     ParameterPositions = parameterPositions
-} as data) =
-    let best = random.Pick(bestPairs data) // best = [| 2; 5 |]
+} as context) =
+    let best = random.Pick(bestPairs context) // best = [| 2; 5 |]
 
     let firstPos = parameterPositions[best[0]]
     let secondPos = parameterPositions[best[1]]
@@ -197,16 +177,18 @@ let candidates (random: IRandom) ({
     
 
 let generate' (random: IRandom) ({
-    NumberParameters = numberParameters
+    Input = {
+        NumberParameters = numberParameters
+    }
     UnusedPairs = unusedPairs
     UnusedPairsSearch = unusedPairsSearch
     UnusedCounts = unusedCounts
-} as data) =
+} as context) =
     let poolSize = 20
 
     let testSets = ResizeArray<int[]>()
     while (unusedPairs.Count > 0) do
-        let best, candidateSets = candidates random data
+        let best, candidateSets = candidates random context
         
         let candidateSets = candidateSets |> Seq.toArray
         
@@ -240,7 +222,7 @@ let generate' (random: IRandom) ({
 
     testSets.ToArray() |> Array.sort
 
-let generate (random: IRandom) (parameters: ParameterDefinition[]): Combination seq =
-    let data = init parameters
+let generate (random: IRandom) (predicate: (Combination -> bool) option) (input: CombinationInput): Combination seq =
+    let data = init input
     let testSets = generate' random data
     testSets

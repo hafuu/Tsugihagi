@@ -4,9 +4,9 @@ open Fumon.Core.Types
 open Fumon.Core.Types.ConstraintExpression
 open Parsec
 
-let build (context: PreprocessedParameter): string -> Constraints =
+let build (input: CombinationInput): string -> Constraints =
     let parameterPositionDict =
-        context.Parameters
+        input.Parameters
         |> Array.mapi (fun index parameter ->
             (parameter.Name.Value, index)
         )

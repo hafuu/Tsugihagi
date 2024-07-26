@@ -33,10 +33,10 @@ let readParameters (config: Configuration) (sheet: ISheet): ParameterDefinition[
     let endRow = beginRow + (parameters |> Seq.map _.Values.Length |> Seq.max)
     parameters, endRow
 
-let readConstraints (config: Configuration) (context: PreprocessedParameter) (beginRow: int) (sheet: ISheet): Constraints * int =
+let readConstraints (config: Configuration) (input: CombinationInput) (beginRow: int) (sheet: ISheet): Constraints * int =
     let column = config.BeginParameterColumn
     let headerRow = findIndex "制約" config.ParameterThreshold beginRow column sheet
-    let parser = ConstraintParser.build context
+    let parser = ConstraintParser.build input
     match headerRow with
     | None -> [||], beginRow
     | Some headerRow ->
@@ -53,7 +53,7 @@ let readConstraints (config: Configuration) (context: PreprocessedParameter) (be
         read' (headerRow + 1)
         result.ToArray(), endRow
 
-let preprocess (parameters: ParameterDefinition[]): PreprocessedParameter =
+let preprocess (parameters: ParameterDefinition[]): CombinationInput =
     let legalValues = [|
         let mutable lv = 0
         for parameter in parameters do

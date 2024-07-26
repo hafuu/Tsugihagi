@@ -3,7 +3,6 @@ module ConstraintParserTest
 open NUnit.Framework
 open FsUnitTyped
 
-open System
 open Fumon.Core
 open Fumon.Core.ConstraintParser
 open Fumon.Core.Types
@@ -15,13 +14,13 @@ let parameters = [|
     p (v "hoge") [| v "a"; v "b" |]
     p (v "piyo") [| v "c"; v "d" |]
 |]
-let context = ParameterReader.preprocess parameters
+let input = ParameterReader.preprocess parameters
 let intValue n = ValueFactor(IntValue(n))
 let name n =
-    let position = context.Parameters |> Array.findIndex (fun p -> p.Name.Value = n)
+    let position = input.Parameters |> Array.findIndex (fun p -> p.Name.Value = n)
     ParameterValueFactor(position)
 
-let parse = build context
+let parse = build input
 
 let parseCases =
     [

@@ -3,7 +3,6 @@ module ConstraintEvaluatorTest
 open NUnit.Framework
 open FsUnitTyped
 
-open System
 open Fumon.Core
 open Fumon.Core.ConstraintParser
 open Fumon.Core.ConstraintEvaluator
@@ -93,13 +92,13 @@ let ``制約を評価できる``(str: string, expected: bool) =
         p (v "number") [| v "100" |]
         p (v "str") [| v "bbb" |]
     |]
-    let context = ParameterReader.preprocess parameters
-    let parse = build context
+    let input = ParameterReader.preprocess parameters
+    let parse = build input
     let constraints = parse str
-    let c parameter value = findValuePosition context parameter value
+    let c parameter value = findValuePosition input parameter value
     let combination = [|
         c "number" "100"
         c "str" "bbb"
     |]
 
-    eval context constraints combination |> shouldEqual expected
+    eval input constraints combination |> shouldEqual expected

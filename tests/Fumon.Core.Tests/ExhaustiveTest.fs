@@ -4,7 +4,6 @@ open NUnit.Framework
 open FsUnitTyped
 
 open Fumon.Core
-open Fumon.Core.Types
 open Utils
 
 [<Test>]
@@ -14,10 +13,10 @@ let ``デシジョンテーブルを作成できる``() =
         p (v "p2") [| v "1"; v "2" |]
         p (v "p3") [| v "あ" |]
     |]
-    let context = ParameterReader.preprocess parameters
-    let c parameter value = findValuePosition context parameter value
+    let input = ParameterReader.preprocess parameters
+    let c parameter value = findValuePosition input parameter value
     
-    let actual = Exhaustive.create None context |> Seq.toArray
+    let actual = Exhaustive.generate None input |> Seq.toArray
 
     let createRow v1 v2 v3 = [| c "p1" v1; c "p2" v2; c"p3" v3 |]
     

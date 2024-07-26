@@ -95,7 +95,7 @@ type ParameterDefinition = {
 ///     [| 9; 10 |];
 /// |]
 /// 
-type PreprocessedParameter = {
+type CombinationInput = {
     /// 処理前のパラメーター
     Parameters: ParameterDefinition[]
     /// パラメーターの数
@@ -155,8 +155,9 @@ module rec ConstraintExpression =
 type Constraints = ConstraintExpression.Constraints
 
 type IRandom =
-    abstract Next: maxValue: int -> int
     abstract Next: minValue: int * maxValue: int -> int
+
+type GenerateCombinations = (Combination -> bool) option -> CombinationInput -> Combination seq
 
 [<AutoOpen>]
 module rec Extensions =
