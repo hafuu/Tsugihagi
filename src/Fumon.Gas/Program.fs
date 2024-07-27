@@ -9,7 +9,7 @@ open System
 
 let jsRandom =
     { new IRandom with
-        member _.Next(minValue: int, maxValue: int): int = emitJsExpr (minValue, maxValue) "Math.floor(Math.random() * ($1 - $0 + 1) + $0)"
+        member _.Next(minValue: int, maxValue: int): int = emitJsExpr (minValue, maxValue) "Math.floor(Math.random() * ($1 - $0) + $0)"
     }
 
 let generateTable() =

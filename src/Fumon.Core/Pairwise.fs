@@ -29,6 +29,7 @@ type IRandom with
 
 type PairwiseContext = {
     Input: CombinationInput
+    Predicate: (Combination -> Ternary) option
     NumberPairs: int
     AllPairsDisplay: int[][]
     UnusedPairs: ResizeArray<int[]>
@@ -36,8 +37,30 @@ type PairwiseContext = {
     ParameterPositions: int[]
     UnusedCounts: int[]
 }
+with
+    member this.Remove(testSet: int[]) =
+        for i in 0 .. (testSet.Length - 2) do
+            for j in (i + 1) .. (testSet.Length - 1) do
+                let v1 = testSet[i]
+                let v2 = testSet[j]
+
+                this.UnusedCounts[v1] <- this.UnusedCounts[v1] - 1
+                this.UnusedCounts[v2] <- this.UnusedCounts[v2] - 1
+
+                this.UnusedPairsSearch[v1][v2] <- 0
+
+                this.UnusedPairs.RemoveAll(fun curr -> curr[0] = v1 && curr[1] = v2) |> ignore
+
+    member this.EvalPredicate(testCase: int seq): Ternary =
+        match this.Predicate with
+        | Some predicate ->
+            let array = Array.create this.Input.Parameters.Length -1
+            for t in testCase do
+                array[this.Input.ParameterPositions[t]] <- t
+            predicate array
+        | None -> True
     
-let numberPairsCaptured (ts: int[]) (unusedPairsSearch: int[][]): int =
+let numberPairsCaptured (unusedPairsSearch: int[][]) (ts: int[]): int =
     let mutable ans = 0
     for i in 0 .. (ts.Length - 2) do
         for j in (i + 1) .. (ts.Length - 1) do
@@ -92,6 +115,7 @@ let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalVa
 
     {
         Input = input
+        Predicate = None
         NumberPairs = numberPairs
         AllPairsDisplay = allPairsDisplay
         UnusedPairs = unusedPairs
@@ -100,35 +124,23 @@ let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalVa
         UnusedCounts = unusedCounts
     }
 
-let bestPairs { UnusedPairs = unusedPairs; UnusedCounts = unusedCounts } =
-    let result = ResizeArray<int[]>()
-    
-    let worstWeight = Array.min  unusedCounts * 2
-    let mutable bestWeight = worstWeight
-    
-    for current in unusedPairs do
-        let weight = unusedCounts[current[0]] + unusedCounts[current[1]]
-        if weight > bestWeight then
-            result.Clear()
-            result.Add(current)
-            bestWeight <- weight
-        elif weight = bestWeight then
-            result.Add(current)
+let betterPairs (random: IRandom) context =
+    let unused = context.UnusedPairs.ToArray()
+    random.Shuffle(unused)
+    unused
+    |> Array.sortByDescending (fun pair ->
+        context.UnusedCounts[pair[0]] + context.UnusedCounts[pair[1]]
+    )
 
-    result
+let candidates' (random: IRandom) context (pair: int[]) =
+    let numberParameters = context.Input.NumberParameters
+    let legalValues = context.Input.LegalValues
+    let unusedPairsSearch = context.UnusedPairsSearch
+    let parameterPositions = context.ParameterPositions
 
-let candidates (random: IRandom) ({
-    Input = {
-        NumberParameters = numberParameters
-        LegalValues = legalValues
-    }
-    UnusedPairsSearch = unusedPairsSearch
-    ParameterPositions = parameterPositions
-} as context) =
-    let best = random.Pick(bestPairs context) // best = [| 2; 5 |]
-
-    let firstPos = parameterPositions[best[0]]
-    let secondPos = parameterPositions[best[1]]
+    // pair = [| 2; 5 |]
+    let firstPos = parameterPositions[pair[0]]
+    let secondPos = parameterPositions[pair[1]]
 
     let ordering = Array.init numberParameters id // ordering = [| 0; 1; 2; 4; 5; 6; 7; 8 |]
 
@@ -152,79 +164,67 @@ let candidates (random: IRandom) ({
                 let result = ResizeArray()
 
                 for value in random.CopyAndShuffle(possibleValues) do
-                    let currentCount = testSet |> List.sumBy (fun otherValue ->
-                        let candidatePair = [| value; otherValue |]
-                        if (unusedPairsSearch[candidatePair[0]][candidatePair[1]] = 1 || unusedPairsSearch[candidatePair[1]][candidatePair[0]] = 1) then
-                            1
-                        else
-                            0
-                    )
+                    let current = value :: testSet
+                    if context.EvalPredicate(current) <> False then
+                        let currentCount = testSet |> List.sumBy (fun otherValue ->
+                            let candidatePair = [| value; otherValue |]
+                            if (unusedPairsSearch[candidatePair[0]][candidatePair[1]] = 1 || unusedPairsSearch[candidatePair[1]][candidatePair[0]] = 1) then
+                                1
+                            else
+                                0
+                        )
 
-                    if currentCount > highestCount then
-                        result.Clear()
-                        highestCount <- currentCount
-                        result.Add(value :: testSet)
-                    else
-                        result.Add(value :: testSet)
+                        if currentCount > highestCount then
+                            result.Clear()
+                            highestCount <- currentCount
+                            result.Add(current)
+                        elif currentCount = highestCount then
+                            result.Add(current)
 
                 result
             )
-        
-        ) (Seq.singleton ([best[1]; best[0]]))
-        |> Seq.map (fun testSet -> testSet |> List.toArray |> Array.sort)
+            
+        ) (Seq.singleton ([pair[1]; pair[0]]))
+        |> Seq.map (fun testSet -> testSet |> List.toArray)
 
-    best, result
-    
+    result
 
 let copyArray (source: _[]) (dest: _[]) = source |> Array.iteri (fun i x -> dest[i] <- x)
 
-let generate' (random: IRandom) ({
-    Input = {
-        NumberParameters = numberParameters
-    }
-    UnusedPairs = unusedPairs
-    UnusedPairsSearch = unusedPairsSearch
-    UnusedCounts = unusedCounts
-} as context) =
+let removeInvalidPairs context =
+    let invalids = context.UnusedPairs.ToArray() |> Array.filter (fun pair -> context.EvalPredicate(pair) = False)
+    for i in 0 .. (invalids.Length - 1) do
+        context.Remove(invalids[i])
+
+let generate' (random: IRandom) context =
     let poolSize = 20
 
+    if context.Predicate.IsSome then
+        removeInvalidPairs context // 明らかに不要な組み合わせは事前に削除しておく
+
     let testSets = ResizeArray<int[]>()
-    while (unusedPairs.Count > 0) do
-        let best, candidateSets = candidates random context
+
+    let mutable loop = true
+
+    while loop do
+        let candidateSets =
+            betterPairs random context
+            |> Seq.collect (candidates' random context)
+            |> Seq.truncate poolSize
+            |> Seq.toArray
         
-        let candidateSets = candidateSets |> Seq.toArray
-        
-        let mutable indexOfBestCandidate = 0
-        let mutable mostPairsCaptured = 0
+        if candidateSets.Length = 0 then
+            loop <- false
+        else
+            let bestTestSet = candidateSets |> Array.maxBy (numberPairsCaptured context.UnusedPairsSearch) |> Array.sort
 
-        let bestTestSet = Array.create numberParameters 0
+            testSets.Add(bestTestSet)
 
-        candidateSets
-        |> Array.iteri (fun i candidate ->
-            let pairsCaptured = numberPairsCaptured candidate unusedPairsSearch
-            if pairsCaptured > mostPairsCaptured then
-                mostPairsCaptured <- pairsCaptured
-                indexOfBestCandidate <- i
-        )
-
-        copyArray candidateSets[indexOfBestCandidate] bestTestSet
-        testSets.Add(bestTestSet)
-
-        for i in 0 .. (numberParameters - 2) do
-            for j in (i + 1) .. (numberParameters - 1) do
-                let v1 = bestTestSet[i]
-                let v2 = bestTestSet[j]
-
-                unusedCounts[v1] <- unusedCounts[v1] - 1
-                unusedCounts[v2] <- unusedCounts[v2] - 1
-
-                unusedPairsSearch[v1][v2] <- 0
-
-                unusedPairs.RemoveAll(fun curr -> curr[0] = v1 && curr[1] = v2) |> ignore
+            context.Remove(bestTestSet)
 
     testSets.ToArray() |> Array.sort
 
 let generate (random: IRandom) (predicate: (Combination -> Ternary) option) (input: CombinationInput): Combination seq =
-    let data = init input
+    let data = { init input with Predicate = predicate }
     let testSets = generate' random data
     testSets

@@ -14,8 +14,6 @@ let random =
             random.Next(minValue, maxValue)
     }
 
-let toArrayArray (xss: int[][]) = Array.init (xss.GetLength(0)) (fun i -> xss[i][*])
-
 let printInit input =
     let printArrayArray (xss: int[][]) =
         for xs in xss do
@@ -33,13 +31,13 @@ let printInit input =
     context.Input.LegalValues |> printArrayArray
 
     printfn "allPairsDisplay:"
-    context.AllPairsDisplay |> toArrayArray |> printArrayArray
+    context.AllPairsDisplay |> printArrayArray
            
     printfn "unusedPairs:"
     context.UnusedPairs |> Seq.toArray |> printArrayArray
 
     printfn "unusedPairsSearch:"
-    context.UnusedPairsSearch |> toArrayArray |> printArrayArray
+    context.UnusedPairsSearch |> printArrayArray
 
     printfn "parameterPositions: %s" (context.ParameterPositions |> Seq.map string |> String.concat "; ")
 
@@ -142,7 +140,6 @@ let ``生成できる``() =
 
     let ok =
         context.AllPairsDisplay
-        |> toArrayArray
         |> Array.forall (fun pair ->
             result
             |> Seq.exists (fun row ->
@@ -151,8 +148,112 @@ let ``生成できる``() =
         )
 
     result
-    |> Seq.toArray
     |> printfn "%A"
 
-    Seq.length result |> shouldBeSmallerThan context.NumberPairs
+    Array.length result |> shouldBeSmallerThan context.NumberPairs
     ok |> shouldEqual true
+
+[<Test>]
+let ``制約を使って生成できる``() =
+    let parameters = [|
+        p (v "p1") [| v "a"; v "b" |]
+        p (v "p2") [| v "c"; v "d"; v "e"; v "f" |]
+        p (v "p3") [| v "g"; v "h"; v "i" |]
+        p (v "p4") [| v "j"; v "k" |]
+    |]
+    let input = ParameterReader.preprocess parameters
+
+    let parse = ConstraintParser.build input
+    let constraints =
+        [|
+            "if [p1] = 'a' then [p2] in { 'd', 'e' }"
+        |]
+        |> Array.collect parse
+    let predicate = ConstraintEvaluator.eval input constraints
+
+    let context = { Pairwise.init input with Predicate = Some predicate }
+    let result = Pairwise.generate' random context |> Seq.toArray
+
+    // 'a': 0
+    // 'c': 2
+    // 'd': 3
+    // 'e': 4
+    // 'f': 5
+    let validPairs = [|
+        [| 0; 3  |]
+        [| 0; 4  |]
+        [| 1; 2  |]
+        [| 1; 3  |]
+        [| 1; 4  |]
+        [| 1; 5  |]
+        [| 0; 6  |]
+        [| 0; 7  |]
+        [| 0; 8  |]
+        [| 1; 6  |]
+        [| 1; 7  |]
+        [| 1; 8  |]
+        [| 0; 9  |]
+        [| 0; 10 |]
+        [| 1; 9  |]
+        [| 1; 10 |]
+        [| 2; 6  |]
+        [| 2; 7  |]
+        [| 2; 8  |]
+        [| 3; 6  |]
+        [| 3; 7  |]
+        [| 3; 8  |]
+        [| 4; 6  |]
+        [| 4; 7  |]
+        [| 4; 8  |]
+        [| 5; 6  |]
+        [| 5; 7  |]
+        [| 5; 8  |]
+        [| 2; 9  |]
+        [| 2; 10 |]
+        [| 3; 9  |]
+        [| 3; 10 |]
+        [| 4; 9  |]
+        [| 4; 10 |]
+        [| 5; 9  |]
+        [| 5; 10 |]
+        [| 6; 9  |]
+        [| 6; 10 |]
+        [| 7; 9  |]
+        [| 7; 10 |]
+        [| 8; 9  |]
+        [| 8; 10 |]
+    |]
+
+    let invalidPairs = [|
+        [| 0; 2 |]
+        [| 0; 5 |]
+    |]
+
+    result
+    |> printfn "%A"
+
+    Array.length result |> shouldBeSmallerThan context.NumberPairs
+    
+    let validOk =
+        validPairs
+        |> Array.forall (fun pair ->
+            result
+            |> Seq.exists (fun row ->
+                Array.contains pair[0] row && Array.contains pair[1] row 
+            )
+        )
+    validOk |> shouldEqual true
+
+    let invalidOk =
+        invalidPairs
+        |> Array.forall (fun pair ->
+            result
+            |> Seq.exists (fun row ->
+                Array.contains pair[0] row && Array.contains pair[1] row 
+            )
+            |> not
+        )
+
+    let constraintsOk = result |> Ternary.Array.forall predicate
+
+    (validOk, invalidOk, constraintsOk) |> shouldEqual (true, true, True)
