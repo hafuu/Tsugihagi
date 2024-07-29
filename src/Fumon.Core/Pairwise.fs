@@ -156,14 +156,11 @@ let candidates' (random: IRandom) context (pair: int[]) =
     let result =
         seq { 2 .. (numberParameters - 1) }
         |> Seq.fold (fun (testSets: seq<int list>) i ->
-            let currPos = ordering[i]
-            let possibleValues = legalValues[currPos]
+            let possibleValues = legalValues[ordering[i]]
             testSets
             |> Seq.collect (fun testSet ->
-                let mutable highestCount = 0
-                let result = ResizeArray()
-
-                for value in random.CopyAndShuffle(possibleValues) do
+                random.CopyAndShuffle(possibleValues)
+                |> Array.choose (fun value ->
                     let current = value :: testSet
                     if context.EvalPredicate(current) <> False then
                         let currentCount = testSet |> List.sumBy (fun otherValue ->
@@ -173,15 +170,14 @@ let candidates' (random: IRandom) context (pair: int[]) =
                             else
                                 0
                         )
-
-                        if currentCount > highestCount then
-                            result.Clear()
-                            highestCount <- currentCount
-                            result.Add(current)
-                        elif currentCount = highestCount then
-                            result.Add(current)
-
-                result
+                        Some {| CurrentCount = currentCount; TestSet = current |}
+                    else
+                        None
+                )
+                |> Array.groupBy _.CurrentCount
+                |> Array.maxBy fst
+                |> snd
+                |> Array.map _.TestSet
             )
             
         ) (Seq.singleton ([pair[1]; pair[0]]))
