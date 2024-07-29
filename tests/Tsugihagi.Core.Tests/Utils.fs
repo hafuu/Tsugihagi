@@ -1,7 +1,7 @@
 module Utils
 
-open Fumon.Core.Types
-open Fumon.Core.Types.Spreadsheet
+open Tsugihagi.Core.Types
+open Tsugihagi.Core.Types.Spreadsheet
 
 let v value = {
     Value = value

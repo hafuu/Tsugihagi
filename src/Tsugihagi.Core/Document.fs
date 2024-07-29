@@ -1,7 +1,7 @@
-module Fumon.Core.Document
+module Tsugihagi.Core.Document
 
-open Fumon.Core.Types
-open Fumon.Core.Types.Spreadsheet
+open Tsugihagi.Core.Types
+open Tsugihagi.Core.Types.Spreadsheet
 
 let generate (generate: GenerateCombinations) (spreadsheet: ISpreadsheet): unit =
     let config =

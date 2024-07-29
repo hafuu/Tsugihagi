@@ -1,6 +1,6 @@
-module Fumon.Core.Exhaustive
+module Tsugihagi.Core.Exhaustive
 
-open Fumon.Core.Types
+open Tsugihagi.Core.Types
 
 let generate (predicate: (Combination -> Ternary) option) (input: CombinationInput): Combination seq =
     let result =

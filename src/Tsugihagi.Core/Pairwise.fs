@@ -1,6 +1,6 @@
-module Fumon.Core.Pairwise
+module Tsugihagi.Core.Pairwise
 
-open Fumon.Core.Types
+open Tsugihagi.Core.Types
 
 type IRandom with
     member this.CopyAndShuffle(source: _[]): _[] =

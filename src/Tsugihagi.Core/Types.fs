@@ -1,4 +1,4 @@
-module Fumon.Core.Types
+module Tsugihagi.Core.Types
 
 module rec Spreadsheet =
     type BorderStyle =

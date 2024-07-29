@@ -1,7 +1,7 @@
-module Fumon.Core.ConstraintParser
+module Tsugihagi.Core.ConstraintParser
 
-open Fumon.Core.Types
-open Fumon.Core.Types.ConstraintExpression
+open Tsugihagi.Core.Types
+open Tsugihagi.Core.Types.ConstraintExpression
 open Parsec
 
 let build (input: CombinationInput): string -> Constraints =

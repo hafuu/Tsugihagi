@@ -1,8 +1,8 @@
-module Fumon.Core.ConstraintEvaluator
+module Tsugihagi.Core.ConstraintEvaluator
 
 open System
-open Fumon.Core.Types
-open Fumon.Core.Types.ConstraintExpression
+open Tsugihagi.Core.Types
+open Tsugihagi.Core.Types.ConstraintExpression
 
 let getValue (input: CombinationInput) (combination: Combination) (factor: Factor): Value option =
     match factor with

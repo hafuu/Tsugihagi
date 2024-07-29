@@ -3,8 +3,8 @@ module ParameterReaderTest
 open NUnit.Framework
 open FsUnitTyped
 
-open Fumon.Core
-open Fumon.Core.Types
+open Tsugihagi.Core
+open Tsugihagi.Core.Types
 
 open Utils
 

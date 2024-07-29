@@ -6,11 +6,11 @@ open Fake.IO.Globbing.Operators
 open Fake.IO.FileSystemOperators
 open Fake.JavaScript
 
-let project = "Fumon"
+let project = "Tsugihagi"
 
 let rootDirectory = __SOURCE_DIRECTORY__ </> ".."
 
-let sln = rootDirectory </> "Fumon.sln"
+let sln = rootDirectory </> "Tsugihagi.sln"
 
 let fableOutput = "out"
 
@@ -41,7 +41,7 @@ let initTargets() =
     Target.create "PreBuild" ignore
 
     Target.create "BuildFable" (fun ctx ->
-        let result = DotNet.exec id "fable" $"./src/Fumon.Gas/ --lang js -o {fableOutput}"
+        let result = DotNet.exec id "fable" $"./src/Tsugihagi.Gas/ --lang js -o {fableOutput}"
         if not result.OK then
             failwithf "Errors while Fable build: %A" result.Messages
     )

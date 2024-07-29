@@ -1,9 +1,9 @@
-module Fumon.Gas.Program
+module Tsugihagi.Gas.Program
 
 open Fable.Core
 open Fable.Core.JsInterop
-open Fumon.Core
-open Fumon.Core.Types
+open Tsugihagi.Core
+open Tsugihagi.Core.Types
 open TypeDefinitions.Gas
 open System
 

@@ -1,7 +1,7 @@
-module Fumon.Core.Configuration
+module Tsugihagi.Core.Configuration
 
-open Fumon.Core.Types
-open Fumon.Core.Types.Spreadsheet
+open Tsugihagi.Core.Types
+open Tsugihagi.Core.Types.Spreadsheet
 open System.Collections.Generic
 
 let defaultConfig = {

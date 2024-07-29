@@ -3,7 +3,7 @@ module DecisionTableTest
 open NUnit.Framework
 open FsUnitTyped
 
-open Fumon.Core
+open Tsugihagi.Core
 open Utils
 
 [<Test>]

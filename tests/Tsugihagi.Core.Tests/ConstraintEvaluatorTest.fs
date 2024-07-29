@@ -3,9 +3,9 @@ module ConstraintEvaluatorTest
 open NUnit.Framework
 open FsUnitTyped
 
-open Fumon.Core
-open Fumon.Core.ConstraintParser
-open Fumon.Core.ConstraintEvaluator
+open Tsugihagi.Core
+open Tsugihagi.Core.ConstraintParser
+open Tsugihagi.Core.ConstraintEvaluator
 
 open Utils
 

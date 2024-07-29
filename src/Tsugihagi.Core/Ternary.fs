@@ -1,4 +1,4 @@
-namespace Fumon.Core
+namespace Tsugihagi.Core
 
 type Ternary =
     | True

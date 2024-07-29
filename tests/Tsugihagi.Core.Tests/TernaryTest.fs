@@ -3,7 +3,7 @@ module TernaryTest
 open NUnit.Framework
 open FsUnitTyped
 
-open Fumon.Core
+open Tsugihagi.Core
 
 let andTestCases =
     [

@@ -3,10 +3,10 @@ module ConstraintParserTest
 open NUnit.Framework
 open FsUnitTyped
 
-open Fumon.Core
-open Fumon.Core.ConstraintParser
-open Fumon.Core.Types
-open Fumon.Core.Types.ConstraintExpression
+open Tsugihagi.Core
+open Tsugihagi.Core.ConstraintParser
+open Tsugihagi.Core.Types
+open Tsugihagi.Core.Types.ConstraintExpression
 open Utils
 
 

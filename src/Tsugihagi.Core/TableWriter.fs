@@ -1,7 +1,7 @@
-module Fumon.Core.TableWriter
+module Tsugihagi.Core.TableWriter
 
-open Fumon.Core.Types
-open Fumon.Core.Types.Spreadsheet
+open Tsugihagi.Core.Types
+open Tsugihagi.Core.Types.Spreadsheet
 
 let writeHeaders (config: Configuration) (input: CombinationInput) (row: int) (beginColumn: int) (sheet: ISheet): unit =
     sheet.GetCell(row, beginColumn - 1).WriteCellData(config.RowNumberHeader)

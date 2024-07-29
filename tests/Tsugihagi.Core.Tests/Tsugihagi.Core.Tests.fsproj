@@ -15,7 +15,7 @@
     <Compile Include="ParameterReaderTest.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Fumon.Core\Fumon.Core.fsproj" />
+    <ProjectReference Include="..\..\src\Tsugihagi.Core\Tsugihagi.Core.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

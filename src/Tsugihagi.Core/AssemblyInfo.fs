@@ -2,14 +2,14 @@
 namespace System
 open System.Reflection
 
-[<assembly: AssemblyTitleAttribute("Fumon.Core")>]
-[<assembly: AssemblyProductAttribute("Fumon")>]
+[<assembly: AssemblyTitleAttribute("Tsugihagi.Core")>]
+[<assembly: AssemblyProductAttribute("Tsugihagi")>]
 [<assembly: AssemblyVersionAttribute("0.3.0")>]
 [<assembly: AssemblyFileVersionAttribute("0.3.0")>]
 do ()
 
 module internal AssemblyVersionInformation =
-    let [<Literal>] AssemblyTitle = "Fumon.Core"
-    let [<Literal>] AssemblyProduct = "Fumon"
+    let [<Literal>] AssemblyTitle = "Tsugihagi.Core"
+    let [<Literal>] AssemblyProduct = "Tsugihagi"
     let [<Literal>] AssemblyVersion = "0.3.0"
     let [<Literal>] AssemblyFileVersion = "0.3.0"

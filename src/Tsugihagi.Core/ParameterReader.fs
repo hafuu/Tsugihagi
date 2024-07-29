@@ -1,8 +1,8 @@
-module Fumon.Core.ParameterReader
+module Tsugihagi.Core.ParameterReader
 
 open System
-open Fumon.Core.Types
-open Fumon.Core.Types.Spreadsheet
+open Tsugihagi.Core.Types
+open Tsugihagi.Core.Types.Spreadsheet
 
 let rec findIndex header threshold (beginRow: int) (column: int) (sheet: ISheet): int option =
     let thresholdRow = beginRow + threshold

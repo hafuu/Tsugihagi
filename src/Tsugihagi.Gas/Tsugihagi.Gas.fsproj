@@ -12,7 +12,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fumon.Core\Fumon.Core.fsproj" />
+    <ProjectReference Include="..\Tsugihagi.Core\Tsugihagi.Core.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
