@@ -23,7 +23,7 @@ type PairwiseContext = {
     Input: CombinationInput
     Predicate: (Combination -> Ternary) option
     NumberPairs: int
-    AllPairsDisplay: int[][]
+    AllPairs: int[][]
     UnusedPairs: ResizeArray<int[]>
     UnusedPairsSearch: int[][]
     ParameterPositions: int[]
@@ -68,7 +68,7 @@ let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalVa
                 num <- num + (legalValues[i].Length * legalValues[j].Length)
         num
 
-    let allPairsDisplay = Array.init numberPairs (fun _ -> Array.create 2 0)
+    let allPairs = Array.init numberPairs (fun _ -> Array.create 2 0)
     let unusedPairs = ResizeArray<int[]>()
     let unusedPairsSearch = Array.init numberParameterValues (fun _ -> Array.create numberParameterValues 0)
     do
@@ -79,8 +79,8 @@ let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalVa
                 let secondRow = legalValues[j]
                 for x in 0 .. (firstRow.Length - 1) do
                     for y in 0 .. (secondRow.Length - 1) do
-                        allPairsDisplay[currPair][0] <- firstRow[x]
-                        allPairsDisplay[currPair][1] <- secondRow[y]
+                        allPairs[currPair][0] <- firstRow[x]
+                        allPairs[currPair][1] <- secondRow[y]
 
                         let aPair = [| firstRow[x]; secondRow[y] |]
 
@@ -102,14 +102,14 @@ let init ({ NumberParameterValues = numberParameterValues; LegalValues = legalVa
     let unusedCounts = Array.create numberParameterValues 0
     do
         for i in 0 .. (numberPairs - 1) do
-            unusedCounts[allPairsDisplay[i][0]] <- unusedCounts[allPairsDisplay[i][0]] + 1
-            unusedCounts[allPairsDisplay[i][1]] <- unusedCounts[allPairsDisplay[i][1]] + 1
+            unusedCounts[allPairs[i][0]] <- unusedCounts[allPairs[i][0]] + 1
+            unusedCounts[allPairs[i][1]] <- unusedCounts[allPairs[i][1]] + 1
 
     {
         Input = input
         Predicate = None
         NumberPairs = numberPairs
-        AllPairsDisplay = allPairsDisplay
+        AllPairs = allPairs
         UnusedPairs = unusedPairs
         UnusedPairsSearch = unusedPairsSearch
         ParameterPositions = parameterPositions
@@ -124,7 +124,7 @@ let betterPairs (random: IRandom) context =
         context.UnusedCounts[pair[0]] + context.UnusedCounts[pair[1]]
     )
 
-let candidates' (random: IRandom) context (pair: int[]) =
+let candidates (random: IRandom) context (pair: int[]) =
     let numberParameters = context.Input.NumberParameters
     let legalValues = context.Input.LegalValues
     let unusedPairsSearch = context.UnusedPairsSearch
@@ -195,7 +195,7 @@ let generate' (random: IRandom) context =
     while loop do
         let candidateSets =
             betterPairs random context
-            |> Seq.collect (candidates' random context)
+            |> Seq.collect (candidates random context)
             |> Seq.truncate poolSize
             |> Seq.toArray
         

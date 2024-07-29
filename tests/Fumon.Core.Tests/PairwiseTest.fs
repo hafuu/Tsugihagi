@@ -31,7 +31,7 @@ let printInit input =
     context.Input.LegalValues |> printArrayArray
 
     printfn "allPairsDisplay:"
-    context.AllPairsDisplay |> printArrayArray
+    context.AllPairs |> printArrayArray
            
     printfn "unusedPairs:"
     context.UnusedPairs |> Seq.toArray |> printArrayArray
@@ -103,7 +103,7 @@ let ``初期化できる``() =
         [| 8; 9  |]
         [| 8; 10 |]
     |]
-    context.AllPairsDisplay |> shouldEqual allPairs
+    context.AllPairs |> shouldEqual allPairs
     context.UnusedPairs |> shouldEqual (ResizeArray(allPairs))
 
     context.UnusedPairsSearch |> shouldEqual [|
@@ -139,7 +139,7 @@ let ``生成できる``() =
     let result = Pairwise.generate' random context |> Seq.toArray
 
     let ok =
-        context.AllPairsDisplay
+        context.AllPairs
         |> Array.forall (fun pair ->
             result
             |> Seq.exists (fun row ->
