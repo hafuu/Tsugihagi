@@ -3,8 +3,6 @@ module Fumon.Core.Pairwise
 open Fumon.Core.Types
 
 type IRandom with
-    member this.Next(maxValue: int): int = this.Next(0, maxValue)
-    member this.Pick(xs: ResizeArray<_>) = xs[this.Next(xs.Count)]
     member this.CopyAndShuffle(source: _[]): _[] =
         let xs = Array.copy source
         for i in 0 .. (xs.Length - 1) do
@@ -13,12 +11,6 @@ type IRandom with
             xs[j] <- xs[i]
             xs[i] <- temp
         xs
-    member this.Shuffle(xs: ResizeArray<_>): unit =
-        for i in 0 .. (xs.Count - 1) do
-            let j = this.Next(i, xs.Count)
-            let temp = xs[j]
-            xs[j] <- xs[i]
-            xs[i] <- temp
     member this.Shuffle(xs: _[], ?beginIndex: int): unit =
         let beginIndex = defaultArg beginIndex 0
         for i in beginIndex .. (xs.Length - 1) do
@@ -184,8 +176,6 @@ let candidates' (random: IRandom) context (pair: int[]) =
         |> Seq.map (fun testSet -> testSet |> List.toArray)
 
     result
-
-let copyArray (source: _[]) (dest: _[]) = source |> Array.iteri (fun i x -> dest[i] <- x)
 
 let removeInvalidPairs context =
     let invalids = context.UnusedPairs.ToArray() |> Array.filter (fun pair -> context.EvalPredicate(pair) = False)
