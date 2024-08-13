@@ -4,19 +4,11 @@ open Tsugihagi.Core.Spreadsheet
 open Tsugihagi.Core.Types
 open System.Collections.Generic
 
-type IConfigurationDefinition =
-    abstract Headers: string[]
-    abstract DefaultValues: CellData[]
-
 type ConfigurationDefinition<'a> = {
     Convert: CellData[] -> 'a
     Headers: string[]
     DefaultValues: CellData[]
 }
-with
-    interface IConfigurationDefinition with
-        member this.Headers: string[] = this.Headers
-        member this.DefaultValues: CellData[] = this.DefaultValues
 
 let readValue def (configDict: Dictionary<string, CellData[]>) =
     def.Headers

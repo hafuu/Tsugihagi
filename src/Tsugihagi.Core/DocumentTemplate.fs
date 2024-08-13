@@ -35,13 +35,17 @@ let initializeTemplate (sheet: ISheet) =
     sheet.GetRange(10, 2, 2, 7).SetBorder(true, true, true, true, false, true, BorderStyle.Solid)
 
 let initializeConfiguration (sheet: ISheet) =
-    let items: IConfigurationDefinition[] = [|
-        Items.beginParameterRow
-        Items.beginParameterColumn
-        Items.parameterThreshold
-        Items.parameterHeaders
-        Items.rowNumberHeader
-        Items.extraColumns
+    let wrap (def: ConfigurationDefinition<_>) = {|
+        Headers = def.Headers
+        DefaultValues = def.DefaultValues
+    |}
+    let items = [|
+        wrap Items.beginParameterRow
+        wrap Items.beginParameterColumn
+        wrap Items.parameterThreshold
+        wrap Items.parameterHeaders
+        wrap Items.rowNumberHeader
+        wrap Items.extraColumns
     |]
 
     items
