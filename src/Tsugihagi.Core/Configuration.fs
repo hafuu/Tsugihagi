@@ -73,8 +73,8 @@ module Items =
                 Value = "No."
                 BackgroundColor = None
                 FontColor = None
-                HorizontalAlignment = Normal
-                VerticalAlignment = Bottom
+                HorizontalAlignment = Center
+                VerticalAlignment = Middle
                 WrapStrategy = Overflow
             }
         |]
@@ -83,7 +83,24 @@ module Items =
     let extraColumns = {
         Convert = id
         Headers = [| "追加カラム" |]
-        DefaultValues = [||]
+        DefaultValues = [|
+            {
+                Value = "結果"
+                BackgroundColor = None
+                FontColor = None
+                HorizontalAlignment = Center
+                VerticalAlignment = Middle
+                WrapStrategy = Overflow
+            }
+            {
+                Value = "備考"
+                BackgroundColor = None
+                FontColor = None
+                HorizontalAlignment = Center
+                VerticalAlignment = Middle
+                WrapStrategy = Overflow
+            }
+        |]
     }
 
 let readConfig configDict = {
