@@ -7,6 +7,7 @@ type Configuration = {
     BeginParameterColumn: int
     ParameterThreshold: int
     ParameterHeaders: string[]
+    MarginTopOfTable: int
     RowNumberHeader: CellData
     ExtraColumns: CellData[]
 }

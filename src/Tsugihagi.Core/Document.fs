@@ -18,4 +18,4 @@ let generate (generate: GenerateCombinations) (spreadsheet: ISpreadsheet): unit 
         else
             Some (ConstraintEvaluator.eval input constraints)
     let table = generate constraintPredicate input
-    TableWriter.write config input table (constraintsEndRow + 2) sheet
+    TableWriter.write config input table (constraintsEndRow + config.MarginTopOfTable) sheet

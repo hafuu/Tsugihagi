@@ -57,6 +57,12 @@ module Items =
         DefaultValues = [| cell "パラメーター"; cell "パラメータ" |]
     }
 
+    let marginTopOfTable = {
+        Convert = fun values -> values[0].Value |> int
+        Headers = [| "組み合わせ表上部余白" |]
+        DefaultValues = [| cell (string 5) |]
+    }
+
     let rowNumberHeader = {
         Convert = fun values -> values[0]
         Headers = [| "行番号ヘッダー"; "行番号ヘッダ" |]
@@ -100,6 +106,7 @@ let readConfig configDict = {
     BeginParameterColumn = readValue Items.beginParameterColumn configDict
     ParameterThreshold = readValue Items.parameterThreshold configDict
     ParameterHeaders = readValue Items.parameterHeaders configDict
+    MarginTopOfTable = readValue Items.marginTopOfTable configDict
     RowNumberHeader = readValue Items.rowNumberHeader configDict
     ExtraColumns = readValue Items.extraColumns configDict
 }
