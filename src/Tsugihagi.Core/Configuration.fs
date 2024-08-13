@@ -4,21 +4,98 @@ open Tsugihagi.Core.Spreadsheet
 open Tsugihagi.Core.Types
 open System.Collections.Generic
 
-let defaultConfig = {
-    BeginParameterRow = 1
-    BeginParameterColumn = 2
-    ParameterThreshold = 30
-    ParameterHeaders = [| "パラメーター"; "パラメータ" |]
-    RowNumberHeader = {
-        Value = "No."
+type IConfigurationDefinition =
+    abstract Headers: string[]
+    abstract DefaultValues: CellData[]
+
+type ConfigurationDefinition<'a> = {
+    Convert: CellData[] -> 'a
+    Headers: string[]
+    DefaultValues: CellData[]
+}
+with
+    interface IConfigurationDefinition with
+        member this.Headers: string[] = this.Headers
+        member this.DefaultValues: CellData[] = this.DefaultValues
+
+let readValue def (configDict: Dictionary<string, CellData[]>) =
+    def.Headers
+    |> Array.tryPick (fun key ->
+        match configDict.TryGetValue(key) with
+        | true, value ->
+            try
+                Some (def.Convert value)
+            with
+                _ -> None
+        | false, _ -> None
+    )
+    |> Option.defaultValue (def.DefaultValues |> def.Convert)
+
+module Items =
+    let private cell value = {
+        Value = value
         BackgroundColor = None
         FontColor = None
-        HorizontalAlignment = Normal
-        VerticalAlignment = Bottom
+        HorizontalAlignment = HorizontalAlignment.Unknown
+        VerticalAlignment = VerticalAlignment.Unknown
         WrapStrategy = Overflow
     }
-    ExtraColumns = [||]
+
+    let beginParameterRow = {
+        Convert = fun values -> values[0].Value |> int
+        Headers = [| "パラメーター開始行" |]
+        DefaultValues = [| cell (string 1) |]
+    }
+
+    let beginParameterColumn = {
+        Convert = fun values -> values[0].Value |> int
+        Headers = [| "パラメーター開始列" |]
+        DefaultValues = [| cell (string 2) |]
+    }
+
+    let parameterThreshold = {
+        Convert = fun values -> values[0].Value |> int
+        Headers = [| "パラメーター探索閾値" |]
+        DefaultValues = [| cell (string 30) |]
+    }
+
+    let parameterHeaders = {
+        Convert = fun values -> values |> Array.map _.Value
+        Headers = [| "パラメーター判定文字列" |]
+        DefaultValues = [| cell "パラメーター"; cell "パラメータ" |]
+    }
+
+    let rowNumberHeader = {
+        Convert = fun values -> values[0]
+        Headers = [| "行番号ヘッダー"; "行番号ヘッダ" |]
+        DefaultValues = [|
+            {
+                Value = "No."
+                BackgroundColor = None
+                FontColor = None
+                HorizontalAlignment = Normal
+                VerticalAlignment = Bottom
+                WrapStrategy = Overflow
+            }
+        |]
+    }
+
+    let extraColumns = {
+        Convert = id
+        Headers = [| "追加カラム" |]
+        DefaultValues = [||]
+    }
+
+let readConfig configDict = {
+    BeginParameterRow = readValue Items.beginParameterRow configDict
+    BeginParameterColumn = readValue Items.beginParameterColumn configDict
+    ParameterThreshold = readValue Items.parameterThreshold configDict
+    ParameterHeaders = readValue Items.parameterHeaders configDict
+    RowNumberHeader = readValue Items.rowNumberHeader configDict
+    ExtraColumns = readValue Items.extraColumns configDict
 }
+
+let defaultConfig = readConfig (Dictionary())
 
 let read (sheet: ISheet): Configuration =
     let configDict = Dictionary<string, CellData[]>()
@@ -34,41 +111,4 @@ let read (sheet: ISheet): Configuration =
                 ()
     do read' 1
 
-    let tryRead key convert defaultValue =
-        try
-            convert configDict[key]
-        with
-            _ -> defaultValue
-
-    {
-        BeginParameterRow =
-            tryRead
-                "パラメーター開始行"
-                (fun values -> values[0].Value |> int)
-                defaultConfig.BeginParameterRow
-        BeginParameterColumn =
-            tryRead
-                "パラメーター開始列"
-                (fun values -> values[0].Value |> int)
-                defaultConfig.BeginParameterColumn
-        ParameterThreshold =
-            tryRead
-                "パラメーター探索閾値"
-                (fun values -> values[0].Value |> int)
-                defaultConfig.ParameterThreshold
-        ParameterHeaders =
-            tryRead
-                "パラメーター判定文字列"
-                (fun values -> values |> Array.map _.Value)
-                defaultConfig.ParameterHeaders
-        RowNumberHeader =
-            tryRead
-                "行番号ヘッダ"
-                (fun values -> values[0])
-                defaultConfig.RowNumberHeader
-        ExtraColumns =
-            tryRead
-                "追加カラム"
-                id
-                defaultConfig.ExtraColumns
-    }
+    readConfig configDict

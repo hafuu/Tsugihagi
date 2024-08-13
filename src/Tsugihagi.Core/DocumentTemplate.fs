@@ -1,8 +1,9 @@
 module Tsugihagi.Core.DocumentTemplate
 
 open Tsugihagi.Core.Spreadsheet
+open Tsugihagi.Core.Configuration
 
-let initializeTemplate' (sheet: ISheet) =
+let initializeTemplate (sheet: ISheet) =
     sheet.GetCell(1, 1).WriteProductLink()
 
     sheet.SetValue(3, 2, "パラメーター")
@@ -33,13 +34,33 @@ let initializeTemplate' (sheet: ISheet) =
     sheet.SetValue(11, 2, @"if [p1] = ""a"" then [p2] = ""c""")
     sheet.GetRange(10, 2, 2, 7).SetBorder(true, true, true, true, false, true, BorderStyle.Solid)
 
-let initializeTemplate (spreadsheet: ISpreadsheet) =
-    let name = "template"
+let initializeConfiguration (sheet: ISheet) =
+    let items: IConfigurationDefinition[] = [|
+        Items.beginParameterRow
+        Items.beginParameterColumn
+        Items.parameterThreshold
+        Items.parameterHeaders
+        Items.rowNumberHeader
+        Items.extraColumns
+    |]
+
+    items
+    |> Array.iteri (fun index item ->
+        let row = index + 1
+        sheet.SetValue(row, 1, item.Headers[0])
+        item.DefaultValues
+        |> Array.iteri (fun valueIndex value ->
+            sheet.WriteCellData(row, 2 + valueIndex, value)
+        )
+    )
+
+let initializeIfNotExists (spreadsheet: ISpreadsheet) init name =
     match spreadsheet.TryGetSheet(name) with
     | Some _ -> ()
     | None ->
         let template = spreadsheet.InsertSheet(name)
-        initializeTemplate' template
+        init template
 
 let initialize (spreadsheet: ISpreadsheet): unit =
-    initializeTemplate spreadsheet
+    initializeIfNotExists spreadsheet initializeTemplate "template"
+    initializeIfNotExists spreadsheet initializeConfiguration "設定"
