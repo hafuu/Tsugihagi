@@ -1,7 +1,7 @@
 module Tsugihagi.Core.Configuration
 
+open Tsugihagi.Core.Spreadsheet
 open Tsugihagi.Core.Types
-open Tsugihagi.Core.Types.Spreadsheet
 open System.Collections.Generic
 
 let defaultConfig = {

@@ -12,6 +12,7 @@
     <None Include="paket.references" />
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Ternary.fs" />
+    <Compile Include="Spreadsheet.fs" />
     <Compile Include="Types.fs" />
     <Compile Include="ConstraintParser.fs" />
     <Compile Include="ConstraintEvaluator.fs" />

@@ -1,7 +1,7 @@
 module Tsugihagi.Core.Document
 
+open Tsugihagi.Core.Spreadsheet
 open Tsugihagi.Core.Types
-open Tsugihagi.Core.Types.Spreadsheet
 
 let generate (generate: GenerateCombinations) (spreadsheet: ISpreadsheet): unit =
     let config =

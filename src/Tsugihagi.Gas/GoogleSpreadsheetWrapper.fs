@@ -1,10 +1,10 @@
 module Tsugihagi.Gas.GoogleSpreadsheetWrapper
 
 open System
-open Tsugihagi.Core.Types.Spreadsheet
+open Tsugihagi.Core.Spreadsheet
 open TypeDefinitions.Gas.GoogleAppsScript.Spreadsheet
 
-module TsugihagiTypes = Tsugihagi.Core.Types.Spreadsheet
+module TsugihagiTypes = Tsugihagi.Core.Spreadsheet
 
 let setHorizontalAlign (align: TsugihagiTypes.HorizontalAlignment) (range: Range) =
     let align =

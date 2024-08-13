@@ -1,7 +1,6 @@
 module Tsugihagi.Core.DocumentTemplate
 
-open Tsugihagi.Core.Types
-open Tsugihagi.Core.Types.Spreadsheet
+open Tsugihagi.Core.Spreadsheet
 
 let initializeTemplate' (sheet: ISheet) =
     sheet.GetCell(1, 1).WriteProductLink()
