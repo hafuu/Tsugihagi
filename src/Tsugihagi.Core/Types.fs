@@ -42,8 +42,11 @@ module rec Spreadsheet =
         abstract member GetWrapStrategy: unit -> WrapStrategy
         abstract member SetWrapStrategy: strategy: WrapStrategy -> unit
 
+        abstract member WriteProductLink: unit -> unit
+
     type IRange =
         abstract member SetBorder: ?top: bool * ?left: bool * ?bottom: bool * ?right: bool * ?vertical: bool * ?horizontal: bool * ?style: BorderStyle -> unit
+        abstract member SetHorizontalAlignment: align: HorizontalAlignment -> unit
 
     type ISheet =
         abstract member GetCell: row: int * column: int -> ICell
@@ -52,6 +55,7 @@ module rec Spreadsheet =
     type ISpreadsheet =
         abstract member GetActiveSheet: unit -> ISheet
         abstract member TryGetSheet: name: string -> ISheet option
+        abstract member InsertSheet: name: string -> ISheet
 
 open Spreadsheet
 
@@ -197,3 +201,9 @@ module rec Extensions =
                 | Some value -> read' (row + 1) (value :: acc)
                 | None -> acc
             read' beginRow [] |> List.toArray |> Array.rev
+
+        member this.SetValue(row: int, column: int, value: string): unit =
+            this.GetCell(row, column).SetValue(Some value)
+
+        member this.WriteCellData(row: int, column: int, cellData: CellData): unit =
+            this.GetCell(row, column).WriteCellData(cellData)

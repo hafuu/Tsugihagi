@@ -21,6 +21,7 @@
     <Compile Include="ParameterReader.fs" />
     <Compile Include="TableWriter.fs" />
     <Compile Include="Document.fs" />
+    <Compile Include="DocumentTemplate.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

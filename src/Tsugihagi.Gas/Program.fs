@@ -22,9 +22,15 @@ let generatePairwiseTable() =
     |> GoogleSpreadsheetWrapper.wrap
     |> Document.generate (Pairwise.generate jsRandom)
     
+let initialize() =
+    SpreadsheetApp
+    |> GoogleSpreadsheetWrapper.wrap
+    |> DocumentTemplate.initialize
+
 type GlobalExports = {
     mutable generateTable: unit -> unit
     mutable generatePairwiseTable: unit -> unit
+    mutable initialize: unit -> unit
     mutable engine: unit -> string
     mutable version: unit -> string
 }
@@ -34,5 +40,6 @@ let ``global``: GlobalExports = jsNative
 
 ``global``.generateTable <- generateTable
 ``global``.generatePairwiseTable <- generatePairwiseTable
+``global``.initialize <- initialize
 ``global``.engine <- fun () -> AssemblyVersionInformation.AssemblyProduct
 ``global``.version <- fun () -> AssemblyVersionInformation.AssemblyVersion
