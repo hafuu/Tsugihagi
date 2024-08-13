@@ -42,7 +42,6 @@ let initializeConfiguration (sheet: ISheet) =
     let items = [|
         wrap Items.beginParameterRow
         wrap Items.beginParameterColumn
-        wrap Items.parameterThreshold
         wrap Items.parameterHeaders
         wrap Items.marginTopOfTable
         wrap Items.rowNumberHeader

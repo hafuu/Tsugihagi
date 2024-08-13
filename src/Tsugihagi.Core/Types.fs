@@ -5,7 +5,6 @@ open Tsugihagi.Core.Spreadsheet
 type Configuration = {
     BeginParameterRow: int
     BeginParameterColumn: int
-    ParameterThreshold: int
     ParameterHeaders: string[]
     MarginTopOfTable: int
     RowNumberHeader: CellData

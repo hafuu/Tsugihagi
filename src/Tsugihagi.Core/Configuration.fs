@@ -45,12 +45,6 @@ module Items =
         DefaultValues = [| cell (string 2) |]
     }
 
-    let parameterThreshold = {
-        Convert = fun values -> values[0].Value |> int
-        Headers = [| "パラメーター探索閾値" |]
-        DefaultValues = [| cell (string 30) |]
-    }
-
     let parameterHeaders = {
         Convert = fun values -> values |> Array.map _.Value
         Headers = [| "パラメーター判定文字列" |]
@@ -104,7 +98,6 @@ module Items =
 let readConfig configDict = {
     BeginParameterRow = readValue Items.beginParameterRow configDict
     BeginParameterColumn = readValue Items.beginParameterColumn configDict
-    ParameterThreshold = readValue Items.parameterThreshold configDict
     ParameterHeaders = readValue Items.parameterHeaders configDict
     MarginTopOfTable = readValue Items.marginTopOfTable configDict
     RowNumberHeader = readValue Items.rowNumberHeader configDict

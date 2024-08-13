@@ -4,7 +4,9 @@ open System
 open Tsugihagi.Core.Spreadsheet
 open Tsugihagi.Core.Types
 
-let rec findIndex header threshold (beginRow: int) (column: int) (sheet: ISheet): int option =
+let threshold = 30 // この数を探索して見つからなかったら打ち切る
+
+let rec findIndex header (beginRow: int) (column: int) (sheet: ISheet): int option =
     let thresholdRow = beginRow + threshold
     let rec find' row =
         let cell = sheet.GetCell(row, column)
@@ -19,7 +21,7 @@ let rec findIndex header threshold (beginRow: int) (column: int) (sheet: ISheet)
 
 let readParameters (config: Configuration) (sheet: ISheet): ParameterDefinition[] * int =
     let beginColumn = config.BeginParameterColumn
-    let headerRow = findIndex "パラメーター" config.ParameterThreshold config.BeginParameterRow beginColumn sheet
+    let headerRow = findIndex "パラメーター" config.BeginParameterRow beginColumn sheet
     let beginRow = headerRow.Value + 1
     let rec read' (column: int) (acc: _ list)=
         let cell = sheet.GetCell(beginRow, column)
@@ -35,7 +37,7 @@ let readParameters (config: Configuration) (sheet: ISheet): ParameterDefinition[
 
 let readConstraints (config: Configuration) (input: CombinationInput) (beginRow: int) (sheet: ISheet): Constraints * int =
     let column = config.BeginParameterColumn
-    let headerRow = findIndex "制約" config.ParameterThreshold beginRow column sheet
+    let headerRow = findIndex "制約" beginRow column sheet
     let parser = ConstraintParser.build input
     match headerRow with
     | None -> [||], beginRow
