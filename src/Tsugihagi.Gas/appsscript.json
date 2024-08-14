@@ -1,0 +1,23 @@
+{
+    "timeZone": "Asia/Tokyo",
+    "dependencies": {
+    },
+    "exceptionLogging": "STACKDRIVER",
+    "runtimeVersion": "V8",
+    "sheets": {
+        "macros": [
+            {
+                "menuName": "生成 - 総当たり",
+                "functionName": "generateTable"
+            },
+            {
+                "menuName": "生成 - Pairwise",
+                "functionName": "generatePairwiseTable"
+            },
+            {
+                "menuName": "初期化",
+                "functionName": "initialize"
+            }
+        ]
+    }
+}

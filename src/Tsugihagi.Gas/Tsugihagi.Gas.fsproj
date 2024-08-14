@@ -5,12 +5,16 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="appsscript.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
     <None Include="paket.references" />
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="TypeDefinitions\GoogleAppsScript.fs" />
     <Compile Include="GoogleSpreadsheetWrapper.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Tsugihagi.Core\Tsugihagi.Core.fsproj" />
   </ItemGroup>
