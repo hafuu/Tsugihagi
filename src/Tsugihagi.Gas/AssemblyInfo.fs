@@ -4,12 +4,12 @@ open System.Reflection
 
 [<assembly: AssemblyTitleAttribute("Tsugihagi.Gas")>]
 [<assembly: AssemblyProductAttribute("Tsugihagi")>]
-[<assembly: AssemblyVersionAttribute("0.3.0")>]
-[<assembly: AssemblyFileVersionAttribute("0.3.0")>]
+[<assembly: AssemblyVersionAttribute("0.4.0")>]
+[<assembly: AssemblyFileVersionAttribute("0.4.0")>]
 do ()
 
 module internal AssemblyVersionInformation =
     let [<Literal>] AssemblyTitle = "Tsugihagi.Gas"
     let [<Literal>] AssemblyProduct = "Tsugihagi"
-    let [<Literal>] AssemblyVersion = "0.3.0"
-    let [<Literal>] AssemblyFileVersion = "0.3.0"
+    let [<Literal>] AssemblyVersion = "0.4.0"
+    let [<Literal>] AssemblyFileVersion = "0.4.0"
