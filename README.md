@@ -1,6 +1,9 @@
 # Tsugihagi
 Google スプレッドシートでテストケースの組み合わせ表を生成するツールです。
 
+## Screenshot
+![screenshot](screenshot.png)
+
 ## 機能
 - 組み合わせ表生成
   - 総当たり
